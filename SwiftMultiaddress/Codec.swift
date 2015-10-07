@@ -13,6 +13,7 @@ enum CodecError : ErrorType {
     case UnknownProtocol
     case NoAddress
     case ParseAddressFail
+    case PortRangeFail
 }
 
 func stringToBytes(multiAddrStr: String) throws -> [UInt8]? {
@@ -48,12 +49,23 @@ func stringToBytes(multiAddrStr: String) throws -> [UInt8]? {
 func addressStringToBytes(proto: Protocol, addrString: String) throws -> [UInt8]? {
     switch proto.code {
     case P_IP4:
-        print("ip4")
+        return try verifyIP4String(addrString)
+        
+    case P_TCP, P_UDP, P_DCCP, P_SCTP:
+        
+        guard let port = Int(addrString) else { throw CodecError.ParseAddressFail }
+        
+        if port > 65535 { throw CodecError.PortRangeFail }
+        
+        // Return the value as big-endian bytes.
+        return [UInt8(port >> 8),UInt8(port & 0xff)]
+        
     default:
         throw CodecError.ParseAddressFail
     }
-    return nil
 }
+
+/// Helper functions not available (afaik) in the Swift/Cocoa libraries.
 
 func trimRight(theString: String, charSet: NSCharacterSet) -> String {
     
@@ -64,4 +76,29 @@ func trimRight(theString: String, charSet: NSCharacterSet) -> String {
     }
     
     return newString
+}
+
+enum IPParseError : ErrorType {
+    case WrongSize
+    case BadOctet(Int)
+}
+
+func verifyIP4String(ipAddress: String) throws -> [UInt8] {
+    
+    let components  = ipAddress.characters.split { $0 == "."}
+    var ip: [UInt8] = []
+    
+    guard components.count == 4 else { throw IPParseError.WrongSize }
+    
+    for index in 0..<components.count {
+        
+        let octet = components[index]
+        
+        /// Check octets for range.
+        guard let byte = UInt8(String(octet)) where byte >= 0 && byte <= 255 else {
+            throw IPParseError.BadOctet(index+1)
+        }
+        ip.append(byte)
+    }
+    return ip
 }

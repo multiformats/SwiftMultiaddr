@@ -7,7 +7,7 @@
 //
 
 import XCTest
-//@testable import SwiftMultiaddress
+@testable import SwiftMultiaddress
 import SwiftHex
 
 class CodecTests: XCTestCase {
@@ -35,10 +35,24 @@ class CodecTests: XCTestCase {
     }
     
     func testStringToBytes() {
-        let address = "/ip4/127.0.0.1/udp/1234"
-        let decoded = SwiftHex.decodeString(address)
-//        let r = try! stringToBytes("/ip4/127.0.0.1/udp/1234")
-        print("testStringToBytes",decoded)
+        
+        let testString = { (address: String, hex: String) in
+            let decodedHex = try SwiftHex.decodeString(hex)
+            guard let encodedAddress = try stringToBytes(address) else {
+                XCTFail()
+                return
+            }
+            
+            XCTAssert(decodedHex == encodedAddress)
+        }
+    
+        
+        do {
+            try testString("/ip4/127.0.0.1/udp/1234", "047f0000011104d2")
+        } catch {
+            print(error)
+            XCTFail()
+        }
     }
     
     func testAddressStringToBytes() {
