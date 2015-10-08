@@ -49,12 +49,34 @@ class CodecTests: XCTestCase {
         
         do {
             try testString("/ip4/127.0.0.1/udp/1234", "047f0000011104d2")
+            try testString("/ip4/127.0.0.1/tcp/4321", "047f0000010610e1")
+            try testString("/ip4/127.0.0.1/udp/1234/ip4/127.0.0.1/tcp/4321", "047f0000011104d2047f0000010610e1")
         } catch {
             print(error)
             XCTFail()
         }
     }
     
+    func testBytesToString() {
+        
+        let testString = { (address: String, hex: String) in
+            let decodedHex = try SwiftHex.decodeString(hex)
+            let encodedAddress = try bytesToString(decodedHex)
+            
+            XCTAssert(address == encodedAddress)
+        }
+        
+        
+        do {
+            try testString("/ip4/127.0.0.1/udp/1234", "047f0000011104d2")
+            try testString("/ip4/127.0.0.1/tcp/4321", "047f0000010610e1")
+            try testString("/ip4/127.0.0.1/udp/1234/ip4/127.0.0.1/tcp/4321", "047f0000011104d2047f0000010610e1")
+        } catch {
+            print(error)
+            XCTFail()
+        }
+    }
+
     func testAddressStringToBytes() {
         print("testAddressStringToBytes")
     }

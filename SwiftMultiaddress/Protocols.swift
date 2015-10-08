@@ -98,12 +98,12 @@ func codeToVarint(num: Int) -> [UInt8] {
     return Array(buf[0..<bufsiz])
 }
 
-func varIntToCode(buffer: [UInt8]) -> Int {
+func varIntToCode(buffer: [UInt8]) -> (Int, Int) {
     return readVarIntCode(buffer)
 }
 
-func readVarIntCode(buffer: [UInt8]) -> Int {
+func readVarIntCode(buffer: [UInt8]) -> (Int, Int) {
     let (value, bytesRead) = uVarInt(buffer)
     if bytesRead < 0 { fatalError("varints larger than uint64 not currently supported") }
-    return Int(value)
+    return (Int(value), bytesRead)
 }
