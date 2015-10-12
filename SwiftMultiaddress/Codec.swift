@@ -90,6 +90,9 @@ func addressStringToBytes(proto: Protocol, addrString: String) throws -> [UInt8]
     case P_IP4:
         return try verifyIP4String(addrString)
         
+    case P_IP6:
+        return try verifyIP6String(addrString)
+        
     case P_TCP, P_UDP, P_DCCP, P_SCTP:
         
         guard let port = Int(addrString) else { throw CodecError.ParseAddressFail }
@@ -107,9 +110,14 @@ func addressStringToBytes(proto: Protocol, addrString: String) throws -> [UInt8]
 func addressBytesToString(proto: Protocol, buffer: [UInt8]) throws -> String {
     switch proto.code {
     case P_IP4, P_IP6:
+        
         return try makeIPStringFromBytes(buffer)
+        
     case P_TCP, P_UDP, P_DCCP, P_SCTP:
+        
+        if buffer.count != 2 { throw CodecError.ParseAddressFail }
         return String(UInt16(buffer[0]) << 8 | UInt16(buffer[1]))
+        
     default: break
     }
     return ""
@@ -187,6 +195,11 @@ func makeIPStringFromBytes< T: UIntLessThan32>(ipBytes: [T]) throws -> String {
 //    }
 //    return ip
 //}
+func verifyIP6String(ipAddress: String) throws -> [UInt8] {
+    var ip: [UInt8] = []
+    return ip
+}
+
 func verifyIP4String(ipAddress: String) throws -> [UInt8] {
     
     let components  = ipAddress.characters.split { $0 == "."}
@@ -206,3 +219,4 @@ func verifyIP4String(ipAddress: String) throws -> [UInt8] {
     }
     return ip
 }
+

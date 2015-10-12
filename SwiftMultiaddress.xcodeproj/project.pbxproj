@@ -19,6 +19,8 @@
 		AB2C2ABE1BC3EE79006A28CB /* VarInt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB2C2ABA1BC3ED4C006A28CB /* VarInt.framework */; };
 		AB2C2AC91BC3F234006A28CB /* SwiftHex.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB2C2AB91BC3ED4C006A28CB /* SwiftHex.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AB2C2ACA1BC3F234006A28CB /* VarInt.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB2C2ABA1BC3ED4C006A28CB /* VarInt.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AB472A3F1BC7CF9F005CCD17 /* IPUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB472A3E1BC7CF9F005CCD17 /* IPUtil.swift */; };
+		AB472A411BCC27D4005CCD17 /* IpUtilTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB472A401BCC27D4005CCD17 /* IpUtilTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +61,8 @@
 		AB2C2AB41BC3E62A006A28CB /* ProtocolsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProtocolsTest.swift; sourceTree = "<group>"; };
 		AB2C2AB91BC3ED4C006A28CB /* SwiftHex.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftHex.framework; path = Carthage/Build/Mac/SwiftHex.framework; sourceTree = "<group>"; };
 		AB2C2ABA1BC3ED4C006A28CB /* VarInt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VarInt.framework; path = Carthage/Build/Mac/VarInt.framework; sourceTree = "<group>"; };
+		AB472A3E1BC7CF9F005CCD17 /* IPUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IPUtil.swift; sourceTree = "<group>"; };
+		AB472A401BCC27D4005CCD17 /* IpUtilTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IpUtilTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +114,7 @@
 				AB2C2AAD1BC3E610006A28CB /* Protocols.swift */,
 				AB2C2A8E1BC3E56A006A28CB /* SwiftMultiaddress.h */,
 				AB2C2A901BC3E56A006A28CB /* Info.plist */,
+				AB472A3E1BC7CF9F005CCD17 /* IPUtil.swift */,
 			);
 			path = SwiftMultiaddress;
 			sourceTree = "<group>";
@@ -121,6 +126,7 @@
 				AB2C2AB41BC3E62A006A28CB /* ProtocolsTest.swift */,
 				AB2C2A9A1BC3E56A006A28CB /* SwiftMultiaddressTests.swift */,
 				AB2C2A9C1BC3E56A006A28CB /* Info.plist */,
+				AB472A401BCC27D4005CCD17 /* IpUtilTests.swift */,
 			);
 			path = SwiftMultiaddressTests;
 			sourceTree = "<group>";
@@ -235,6 +241,7 @@
 			files = (
 				AB2C2AB11BC3E610006A28CB /* Protocols.swift in Sources */,
 				AB2C2AB01BC3E610006A28CB /* MultiAddress.swift in Sources */,
+				AB472A3F1BC7CF9F005CCD17 /* IPUtil.swift in Sources */,
 				AB2C2AAF1BC3E610006A28CB /* Codec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -245,6 +252,7 @@
 			files = (
 				AB2C2AB51BC3E62A006A28CB /* CodecTests.swift in Sources */,
 				AB2C2A9B1BC3E56A006A28CB /* SwiftMultiaddressTests.swift in Sources */,
+				AB472A411BCC27D4005CCD17 /* IpUtilTests.swift in Sources */,
 				AB2C2AB61BC3E62A006A28CB /* ProtocolsTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
