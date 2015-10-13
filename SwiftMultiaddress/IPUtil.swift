@@ -97,25 +97,26 @@ func parseIPv4(ipString: String) throws -> IP {
 }
 
 func parseIPv6(ipString: String, zoneAllowed: Bool) throws -> (IP, String) {
-    print("IPv6")
-    var ipBytes: IP = []
+
+    var ipBytes: IP         = Array<UInt8>(count: IPv6Len, repeatedValue: 0)
     var ipTmpString: String = ipString
-    var zone: String = ""
-    var ellipsis = -1
-    var charactersRead = 0
+    var zone: String        = ""
+    var ellipsis            = -1
+    var charactersRead      = 0
     
     if zoneAllowed { (ipTmpString, zone) = splitHostZone(ipTmpString) }
     
     let ipStringLength = ipTmpString.characters.count
     
     if ipStringLength >= 2 && ipString.hasPrefix("::") {
-        ellipsis = 0
-        charactersRead = 2
+        
+        ellipsis        = 0
+        charactersRead  = 2
+        
         if ipStringLength == charactersRead {
             return (ipBytes, zone)
         }
     }
-    
     
     var outIndex = 0
     while outIndex < IPv6Len {
@@ -132,46 +133,50 @@ func parseIPv6(ipString: String, zoneAllowed: Bool) throws -> (IP, String) {
         
         var separator: Character?
         if ipTmpString.characters.count > 0 {
-            ipTmpString.removeAtIndex(ipTmpString.startIndex)
+            separator = ipTmpString.removeAtIndex(ipTmpString.startIndex)
+            charactersRead++
         }
         
         /// We might be in a trailing IPv4
         if ipTmpString.characters.count > 0 && separator == "." {
-            print("ellipsis",ellipsis,"outIndex",outIndex)
+
             if ellipsis < 0 && outIndex != IPv6Len-IPv4Len {
                 throw IPError.SeparatorInWrongPosition
             }
-            if ipBytes.count + IPv4Len > IPv6Len {
+
+            if outIndex + IPv4Len > IPv6Len {
                 throw IPError.NotEnoughRoom
             }
             
-            let ip4 = firstHex+String(separator)+ipTmpString
+            let ip4 = firstHex+String(separator!)+ipTmpString
             let ip = try parseIPv4(ip4)
-            
-            ipBytes.append(ip[12])
-            ipBytes.append(ip[13])
-            ipBytes.append(ip[14])
-            ipBytes.append(ip[15])
+
+            ipBytes[outIndex]   = ip[12]
+            ipBytes[outIndex+1] = ip[13]
+            ipBytes[outIndex+2] = ip[14]
+            ipBytes[outIndex+3] = ip[15]
             charactersRead = ipStringLength
-            outIndex += IPv4Len // remove this when sure it's the same as ipBytes.count
+            outIndex += IPv4Len
             break
         }
+
+        ipBytes[outIndex]   = UInt8(hexVal >> 8)
+        ipBytes[outIndex+1] = UInt8(hexVal & 0xff)
+        outIndex += 2
         
-        ipBytes.append(UInt8(hexVal >> 8))
-        ipBytes.append(UInt8(hexVal & 0xff))
-        outIndex += 2 // remove this when sure it's the same as ipBytes.count
+        /// Drop out if the string is empty.
+        if ipTmpString == "" { break }
         
-        if ipTmpString == "" {
-            break
-        }
-        separator = ipTmpString.characters.first!
+        // Check the first character of the next value...
+        let firstChar = ipTmpString.characters.first!
         /// we need to drop out here if the next character is an ellipsis and we haven't yet got one.
-        if separator == ":" {
+        if firstChar == ":" {
             if ellipsis >= 0 { throw IPError.TooManyEllipsis }
-            ellipsis = ipBytes.count
-         
+            ellipsis = outIndex
+            
             ipTmpString.removeAtIndex(ipTmpString.startIndex)
             charactersRead++
+            
             if ipTmpString.characters.count == 0 {
                 break
             }
@@ -179,23 +184,24 @@ func parseIPv6(ipString: String, zoneAllowed: Bool) throws -> (IP, String) {
     }
     
     /// Throw an error if we haven't used the whole string.
-    if ipTmpString != ""{ throw IPError.NotUsedEntireString }
+    if charactersRead != ipStringLength { throw IPError.NotUsedEntireString }
     
     /// If the ipBytes is not a full IPv6 length we need to expand it.
-    if ipBytes.count < IPv6Len {
-        ipBytes = try expandEllipsis(ipBytes, ellipsis: ellipsis)
+    if outIndex < IPv6Len {
+        ipBytes = try expandEllipsis(ipBytes, lastEntry: outIndex, ellipsis: ellipsis)
     }
     
     return (ipBytes,"")
 }
 
-func expandEllipsis(ipBytes: IP, ellipsis: Int) throws -> IP {
+func expandEllipsis(ipBytes: IP, lastEntry: Int, ellipsis: Int) throws -> IP {
     if ellipsis < 0 { throw IPError.EllipsisFail }
     
-    let j = ipBytes.count
-    var ip: IP = Array<UInt8>(count: IPv6Len, repeatedValue: 0)
-    ip.replaceRange(Range(0..<ipBytes.count), with: ipBytes)
-
+//    let j = ipBytes.count
+    let j = lastEntry
+//    var ip: IP = Array<UInt8>(count: IPv6Len, repeatedValue: 0)
+//    ip.replaceRange(Range(0..<ipBytes.count), with: ipBytes)
+    var ip = ipBytes
     let n = IPv6Len - j
     for var k = j - 1 ; k >= ellipsis ; k-- {
         ip[k+n] = ip[k]

@@ -33,6 +33,7 @@ class IpUtilTests: XCTestCase {
         self.measureBlock(){
             do {
                 (ipv6, _) = try parseIPv6(ip2, zoneAllowed: false)
+                (ipv6, _) = try parseIPv6(ip1, zoneAllowed: false)
             } catch {
                 print(error)
                 XCTFail()
@@ -43,12 +44,12 @@ class IpUtilTests: XCTestCase {
     
     func testEllipsis1() {
         // This is an example of a performance test case.
-        let ipBytes: IP = [32,1,72,96,0,0,32,1,0,104]
+        let ipBytes: IP = [32,1,72,96,0,0,32,1,0,104,0,0,0,0,0,0]
         let ellipsis = 8
 
         self.measureBlock {
             // Put the code you want to measure the time of here.
-            try! expandEllipsis(ipBytes, ellipsis: ellipsis)
+            try! expandEllipsis(ipBytes, lastEntry: 10, ellipsis: ellipsis)
         }
     }
     
