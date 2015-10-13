@@ -29,21 +29,38 @@ class IpUtilTests: XCTestCase {
     func testParseIP() {
         let ip1 = "0:0:0:0:0000:ffff:127.1.2.3"
         let ip2 = "2001:4860:0:2001::68"
-        
-        do {
-            var ipv6 = try parseIPv6(ip2, zoneAllowed: false)
-            print(ipv6)
-        } catch {
-            print(error)
-            XCTFail()
+        var ipv6: IP = []
+        self.measureBlock(){
+            do {
+                (ipv6, _) = try parseIPv6(ip2, zoneAllowed: false)
+            } catch {
+                print(error)
+                XCTFail()
+            }
+        }
+        print(ipv6)
+    }
+    
+    func testEllipsis1() {
+        // This is an example of a performance test case.
+        let ipBytes: IP = [32,1,72,96,0,0,32,1,0,104]
+        let ellipsis = 8
+
+        self.measureBlock {
+            // Put the code you want to measure the time of here.
+            try! expandEllipsis(ipBytes, ellipsis: ellipsis)
         }
     }
     
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
+    func testEllipsis2() {
+        let ipBytes: IP = [32,1,72,96,0,0,32,1,0,104]
+        let ellipsis = 8
+
         self.measureBlock {
             // Put the code you want to measure the time of here.
+            try! expandEllipsis2(ipBytes, ellipsis: ellipsis)
         }
+
     }
 
 }
