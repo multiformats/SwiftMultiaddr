@@ -29,13 +29,13 @@ enum IPError : ErrorType {
     case SeparatorInWrongPosition
     case NotEnoughRoom
     case TooManyEllipsis
-    case EllipsisFail
+    case NoEllipsisToExpand
     case NotUsedEntireString
 }
 
 let V4InV6Prefix: [UInt8] = [0,0,0,0,0,0,0,0,0,0,0xff,0xff]
 
-func IPv4(a: UInt8, b: UInt8, c: UInt8, d: UInt8) -> IP {
+func IPv4(a: UInt8, _ b: UInt8, _ c: UInt8, _ d: UInt8) -> IP {
     
     var outP: IP = Array<UInt8>(count: IPv6Len, repeatedValue: 0)
     outP.replaceRange(Range(0..<V4InV6Prefix.count), with: V4InV6Prefix)
@@ -93,7 +93,7 @@ func parseIPv4(ipString: String) throws -> IP {
         ipBytes.append(byte)
     }
     
-    return IPv4(ipBytes[0], b: ipBytes[1], c: ipBytes[2], d: ipBytes[3])
+    return IPv4(ipBytes[0], ipBytes[1], ipBytes[2], ipBytes[3])
 }
 
 func parseIPv6(ipString: String, zoneAllowed: Bool) throws -> (IP, String) {
@@ -101,6 +101,7 @@ func parseIPv6(ipString: String, zoneAllowed: Bool) throws -> (IP, String) {
     var ipBytes: IP         = Array<UInt8>(count: IPv6Len, repeatedValue: 0)
     var ipTmpString: String = ipString
     var zone: String        = ""
+    /// We are calling two consecutive colons for ellipsis.
     var ellipsis            = -1
     var charactersRead      = 0
     
@@ -169,7 +170,7 @@ func parseIPv6(ipString: String, zoneAllowed: Bool) throws -> (IP, String) {
         
         // Check the first character of the next value...
         let firstChar = ipTmpString.characters.first!
-        /// we need to drop out here if the next character is an ellipsis and we haven't yet got one.
+        /// we need to drop out here if the next character is a colon and we haven't yet got one.
         if firstChar == ":" {
             if ellipsis >= 0 { throw IPError.TooManyEllipsis }
             ellipsis = outIndex
@@ -188,42 +189,28 @@ func parseIPv6(ipString: String, zoneAllowed: Bool) throws -> (IP, String) {
     
     /// If the ipBytes is not a full IPv6 length we need to expand it.
     if outIndex < IPv6Len {
-        ipBytes = try expandEllipsis(ipBytes, lastEntry: outIndex, ellipsis: ellipsis)
+        ipBytes = try expandEllipsis(ipBytes, bytesWritten: outIndex, ellipsisIndex: ellipsis)
     }
     
     return (ipBytes,"")
 }
 
-func expandEllipsis(ipBytes: IP, lastEntry: Int, ellipsis: Int) throws -> IP {
-    if ellipsis < 0 { throw IPError.EllipsisFail }
+func expandEllipsis(ipBytes: IP, bytesWritten: Int, ellipsisIndex: Int) throws -> IP {
     
-//    let j = ipBytes.count
-    let j = lastEntry
-//    var ip: IP = Array<UInt8>(count: IPv6Len, repeatedValue: 0)
-//    ip.replaceRange(Range(0..<ipBytes.count), with: ipBytes)
-    var ip = ipBytes
-    let n = IPv6Len - j
-    for var k = j - 1 ; k >= ellipsis ; k-- {
-        ip[k+n] = ip[k]
+    if ellipsisIndex < 0 { throw IPError.NoEllipsisToExpand }
+    
+    var ip  = ipBytes
+    /// Calculate the number of bytes left to expand into.
+    let bytesLeft   = IPv6Len - bytesWritten
+    
+    /// move the values after the ellipsis to the end of the output string
+    for var k = bytesWritten - 1 ; k >= ellipsisIndex ; k-- {
+        ip[k+bytesLeft] = ip[k]
     }
-    for var k = ellipsis + n - 1 ; k >= ellipsis ; k-- {
+    
+    /// Fill the bytes between the ellipsis and the ? with 0
+    for var k = ellipsisIndex + bytesLeft - 1 ; k >= ellipsisIndex ; k-- {
         ip[k] = 0
-    }
-    return ip
-}
-
-func expandEllipsis2(ipBytes: IP, ellipsis: Int) throws -> IP {
-    var ip = ipBytes
-    if ip.count < IPv6Len {
-        if ellipsis < 0 { throw IPError.EllipsisFail }
-        /// store the bytes after the ellipsis
-        let sub = ip[ellipsis..<ip.count]
-        /// remove the bytes after the ellipsis
-        ip = IP(ip[0..<ellipsis])
-        /// expand the empty bytes
-        let zBytes = Array<UInt8>(count: IPv6Len-ellipsis-sub.count, repeatedValue: 0)
-        /// rebuild the final expanded IPv6 string.
-        ip = ip+zBytes+sub
     }
     return ip
 }

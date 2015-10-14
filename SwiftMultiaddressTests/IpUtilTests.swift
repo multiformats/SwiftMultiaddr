@@ -27,19 +27,42 @@ class IpUtilTests: XCTestCase {
     }
 
     func testParseIP() {
-        let ip1 = "0:0:0:0:0000:ffff:127.1.2.3"
-        let ip2 = "2001:4860:0:2001::68"
-        var ipv6: IP = []
-        self.measureBlock(){
+        
+        let IPTestCases: [(input: String, output: IP)] = [
+            ("127.0.1.2", IPv4(127, 0, 1, 2)),
+            ("127.0.0.1", IPv4(127, 0, 0, 1)),
+            ("127.001.002.003", IPv4(127, 1, 2, 3)),
+            ("::ffff:127.1.2.3", IPv4(127, 1, 2, 3)),
+            ("::ffff:127.001.002.003", IPv4(127, 1, 2, 3)),
+            ("::ffff:7f01:0203", IPv4(127, 1, 2, 3)),
+            ("0:0:0:0:0000:ffff:127.1.2.3", IPv4(127, 1, 2, 3)),
+            ("0:0:0:0:000000:ffff:127.1.2.3", IPv4(127, 1, 2, 3)),
+            ("0:0:0:0::ffff:127.1.2.3", IPv4(127, 1, 2, 3)),
+            
+            ("2001:4860:0:2001::68", IP(arrayLiteral: 0x20, 0x01, 0x48, 0x60, 0, 0, 0x20, 0x01, 0, 0, 0, 0, 0, 0, 0x00, 0x68)),
+            ("2001:4860:0000:2001:0000:0000:0000:0068", IP(arrayLiteral: 0x20, 0x01, 0x48, 0x60, 0, 0, 0x20, 0x01, 0, 0, 0, 0, 0, 0, 0x00, 0x68)),
+            
+            /// The following should fail
+            ("127.0.0.256", IP()),
+            ("abc", IP()),
+            ("fe80::1%lo0", IP()),
+            ("fe80::1%911", IP()),
+            ("", IP()),
+            ("a1:a2:a3:a4::b1:b2:b3:b4", IP())
+        ]
+        
+        for testCase in IPTestCases {
             do {
-                (ipv6, _) = try parseIPv6(ip2, zoneAllowed: false)
-                (ipv6, _) = try parseIPv6(ip1, zoneAllowed: false)
+                let out = try parseIP(testCase.input)
+                XCTAssert(out == testCase.output)
             } catch {
+                if testCase.output == IP() {
+                    return
+                }
                 print(error)
                 XCTFail()
             }
         }
-        print(ipv6)
     }
     
     func testEllipsis1() {
@@ -49,19 +72,8 @@ class IpUtilTests: XCTestCase {
 
         self.measureBlock {
             // Put the code you want to measure the time of here.
-            try! expandEllipsis(ipBytes, lastEntry: 10, ellipsis: ellipsis)
+            try! expandEllipsis(ipBytes, bytesWritten: 10, ellipsisIndex: ellipsis)
         }
-    }
-    
-    func testEllipsis2() {
-        let ipBytes: IP = [32,1,72,96,0,0,32,1,0,104]
-        let ellipsis = 8
-
-        self.measureBlock {
-            // Put the code you want to measure the time of here.
-            try! expandEllipsis2(ipBytes, ellipsis: ellipsis)
-        }
-
     }
 
 }
