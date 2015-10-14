@@ -56,11 +56,10 @@ class IpUtilTests: XCTestCase {
                 let out = try parseIP(testCase.input)
                 XCTAssert(out == testCase.output)
             } catch {
-                if testCase.output == IP() {
-                    return
+                if testCase.output != IP() {
+                    print("ERROR: ",error, "for test case",testCase.input)
+                    XCTFail()
                 }
-                print(error)
-                XCTFail()
             }
         }
     }

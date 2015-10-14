@@ -31,6 +31,7 @@ enum IPError : ErrorType {
     case TooManyEllipsis
     case NoEllipsisToExpand
     case NotUsedEntireString
+    case UnusedEllipsis
 }
 
 let V4InV6Prefix: [UInt8] = [0,0,0,0,0,0,0,0,0,0,0xff,0xff]
@@ -113,6 +114,7 @@ func parseIPv6(ipString: String, zoneAllowed: Bool) throws -> (IP, String) {
         
         ellipsis        = 0
         charactersRead  = 2
+        ipTmpString = ipTmpString.substringFromIndex(ipTmpString.startIndex.advancedBy(2))
         
         if ipStringLength == charactersRead {
             return (ipBytes, zone)
@@ -170,6 +172,10 @@ func parseIPv6(ipString: String, zoneAllowed: Bool) throws -> (IP, String) {
         
         // Check the first character of the next value...
         let firstChar = ipTmpString.characters.first!
+        
+        /// making sure it's a colon
+        if separator != ":" || charactersRead+1 == ipStringLength { throw IPError.InvalidIPString }
+        
         /// we need to drop out here if the next character is a colon and we haven't yet got one.
         if firstChar == ":" {
             if ellipsis >= 0 { throw IPError.TooManyEllipsis }
@@ -190,6 +196,10 @@ func parseIPv6(ipString: String, zoneAllowed: Bool) throws -> (IP, String) {
     /// If the ipBytes is not a full IPv6 length we need to expand it.
     if outIndex < IPv6Len {
         ipBytes = try expandEllipsis(ipBytes, bytesWritten: outIndex, ellipsisIndex: ellipsis)
+    } else {
+        /// At this point we've got a full output ipBytes but we still have an unexpanded
+        /// ellipsis which means there's an error.
+        if ellipsis >= 0 { throw IPError.UnusedEllipsis }
     }
     
     return (ipBytes,"")
