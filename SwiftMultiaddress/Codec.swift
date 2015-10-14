@@ -88,10 +88,10 @@ func sizeForAddress(proto: Protocol, buffer: [UInt8]) -> Int {
 func addressStringToBytes(proto: Protocol, addrString: String) throws -> [UInt8]? {
     switch proto.code {
     case P_IP4:
-        return try verifyIP4String(addrString)
+        return try ipToIPv4(parseIP(addrString))
         
     case P_IP6:
-        return try verifyIP6String(addrString)
+        return try ipToIPv6(parseIP(addrString))
         
     case P_TCP, P_UDP, P_DCCP, P_SCTP:
         
@@ -171,52 +171,4 @@ func makeIPStringFromBytes< T: UIntLessThan32>(ipBytes: [T]) throws -> String {
     return ipString
 }
 
-//func verifyIPString< T: UIntLessThan32>(ipAddress: String) throws -> [T] {
-//    
-//    let components  = ipAddress.characters.split { $0 == "."}
-//    var ip: [T] = []
-//    var maxOctets = 4
-//    var maxVal: T = 255
-//    if ip[0] is UInt16 {
-//        maxOctets = 8
-//        maxVal = 65535
-//    }
-//    guard components.count == maxOctets else { throw IPParseError.WrongSize }
-//    
-//    for index in 0..<components.count {
-//        
-//        let octet: T = String(components[index]) as! T
-//
-//        /// Check octets for range.
-//        if octet < 0 || octet > maxVal {
-//            throw IPParseError.BadOctet(index+1)
-//        }
-//        ip.append(octet)
-//    }
-//    return ip
-//}
-func verifyIP6String(ipAddress: String) throws -> [UInt8] {
-    var ip: [UInt8] = []
-    return ip
-}
-
-func verifyIP4String(ipAddress: String) throws -> [UInt8] {
-    
-    let components  = ipAddress.characters.split { $0 == "."}
-    var ip: [UInt8] = []
-    
-    guard components.count == 4 else { throw IPParseError.WrongSize }
-    
-    for index in 0..<components.count {
-        
-        let octet = components[index]
-        
-        /// Check octets for range.
-        guard let byte = UInt8(String(octet)) where byte >= 0 && byte <= 255 else {
-            throw IPParseError.BadOctet(index+1)
-        }
-        ip.append(byte)
-    }
-    return ip
-}
 

@@ -9,9 +9,10 @@
 import Foundation
 
 public struct MultiAddress {
-    let raw: [uint8]
+    let raw: [UInt8]
 }
 
 public func newMultiAddr(addrString: String) throws -> MultiAddress? {
-    return nil
+    guard let multiAddressBytes = try stringToBytes(addrString) else { return nil }
+    return MultiAddress(raw: multiAddressBytes)
 }

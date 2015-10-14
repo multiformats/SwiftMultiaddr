@@ -14,14 +14,6 @@ typealias IP = [UInt8]
 let IPv4Len = 4
 let IPv6Len = 16
 
-//func parseIP(ipString: String) -> IP {
-//
-//    /// We decide on the IP version based on the separator. 
-//    if (ipString.rangeOfString(".") != nil) {
-//        return parseIPv4
-//    }
-//    
-//}
 enum IPError : ErrorType {
     case InvalidIPString
     case TooManyOctets
@@ -77,7 +69,7 @@ func parseIP(ipString: String) throws -> IP {
 }
 
 func parseIPv4(ipString: String) throws -> IP {
-    print("IPv4")
+
     var ipBytes: IP = []
     let components  = ipString.characters.split { $0 == "."}
     
@@ -205,6 +197,39 @@ func parseIPv6(ipString: String, zoneAllowed: Bool) throws -> (IP, String) {
     return (ipBytes,"")
 }
 
+func isZeros<N : IntegerType>(numbers: [N]) -> Bool {
+    for number in numbers {
+        if number != 0 { return false }
+    }
+    return true
+}
+
+func ipToIPv4(anIP: IP) throws -> IP {
+    switch anIP.count {
+    case IPv4Len:
+        return anIP
+    case IPv6Len where
+        isZeros(Array<UInt8>(anIP[0..<10])) &&
+        anIP[10] == 0xff &&
+        anIP[11] == 0xff:
+        
+        return Array<UInt8>(anIP[12..<16])
+    default:
+        throw IPError.InvalidIPString
+    }
+}
+
+func ipToIPv6(anIP: IP) throws -> IP {
+    switch anIP.count {
+    case IPv4Len:
+        return IPv4(anIP[0], anIP[1], anIP[2], anIP[3])
+    case IPv6Len:
+        return anIP
+    default:
+        throw IPError.InvalidIPString
+    }
+}
+
 func expandEllipsis(ipBytes: IP, bytesWritten: Int, ellipsisIndex: Int) throws -> IP {
     
     if ellipsisIndex < 0 { throw IPError.NoEllipsisToExpand }
@@ -236,7 +261,6 @@ func splitHostZone(ipString: String) -> (String, String) {
 }
 
 let validHex = NSCharacterSet(charactersInString: "abcdefABCDEF0123456789")
-
 
 /** hexStringToInt takes a hex value as a string and returns the value as an int */
 func hexStringToInt(str: String) -> (Int, Int)? {
