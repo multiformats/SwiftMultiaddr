@@ -7,13 +7,20 @@
 //
 
 import Foundation
+import Base32
 
 enum CodecError : ErrorType {
     case InvalidMultiAddress
+    case InvalidPortNumber
     case UnknownProtocol
     case NoAddress
     case ParseAddressFail
     case PortRangeFail
+    case PortValueTooSmall
+    case PortValueTooBig
+    case NoPortNumber
+    case NotTorOnion
+    case FailedBase32Decoding
 }
 
 func stringToBytes(multiAddrStr: String) throws -> [UInt8]? {
@@ -95,13 +102,35 @@ func addressStringToBytes(proto: Protocol, addrString: String) throws -> [UInt8]
         
     case P_TCP, P_UDP, P_DCCP, P_SCTP:
         
-        guard let port = Int(addrString) else { throw CodecError.ParseAddressFail }
+        guard let portVal = Int(addrString) else { throw CodecError.ParseAddressFail }
         
-        if port > 65535 { throw CodecError.PortRangeFail }
+        if portVal > 65535 { throw CodecError.PortRangeFail }
         
         // Return the value as big-endian bytes.
-        return [UInt8(port >> 8),UInt8(port & 0xff)]
+        return [UInt8(portVal >> 8),UInt8(portVal & 0xff)]
         
+    case P_ONION:
+        var components = addrString.characters.split{$0 == ":"}.map(String.init)
+        if components.count != 2 { throw CodecError.NoPortNumber }
+        
+        /// A valid tor onion address is 16 characters.
+        if components[0].characters.count != 16 { throw CodecError.NotTorOnion }
+        
+        let onionHostBytes = components[0].uppercaseString
+        guard let onionData = onionHostBytes.base32DecodedData else { throw CodecError.FailedBase32Decoding }
+        var onionBytes = Array<UInt8>(count: onionData.length, repeatedValue: 0)
+        onionData.getBytes(&onionBytes, length: onionData.length)
+        
+        /// Onion port number
+        guard let portVal = Int(components[1]) else { throw CodecError.InvalidPortNumber }
+        if portVal >= 65536 { throw CodecError.PortValueTooBig }
+        if portVal < 1 { throw CodecError.PortValueTooSmall }
+
+        // Return the value as big-endian bytes.
+        let portBytes = [UInt8(portVal >> 8),UInt8(portVal & 0xff)]
+        onionBytes += portBytes
+        
+        return onionBytes
     default:
         throw CodecError.ParseAddressFail
     }

@@ -21,6 +21,8 @@
 		AB2C2ACA1BC3F234006A28CB /* VarInt.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB2C2ABA1BC3ED4C006A28CB /* VarInt.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AB472A3F1BC7CF9F005CCD17 /* IPUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB472A3E1BC7CF9F005CCD17 /* IPUtil.swift */; };
 		AB472A411BCC27D4005CCD17 /* IpUtilTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB472A401BCC27D4005CCD17 /* IpUtilTests.swift */; };
+		ABAD70281BCEC0AD00E8C82C /* Base32.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABAD70271BCEC0AD00E8C82C /* Base32.framework */; };
+		ABAD702A1BCEC20900E8C82C /* Base32.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = ABAD70271BCEC0AD00E8C82C /* Base32.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +42,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				ABAD702A1BCEC20900E8C82C /* Base32.framework in CopyFiles */,
 				AB2C2AC91BC3F234006A28CB /* SwiftHex.framework in CopyFiles */,
 				AB2C2ACA1BC3F234006A28CB /* VarInt.framework in CopyFiles */,
 			);
@@ -63,6 +66,7 @@
 		AB2C2ABA1BC3ED4C006A28CB /* VarInt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VarInt.framework; path = Carthage/Build/Mac/VarInt.framework; sourceTree = "<group>"; };
 		AB472A3E1BC7CF9F005CCD17 /* IPUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IPUtil.swift; sourceTree = "<group>"; };
 		AB472A401BCC27D4005CCD17 /* IpUtilTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IpUtilTests.swift; sourceTree = "<group>"; };
+		ABAD70271BCEC0AD00E8C82C /* Base32.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Base32.framework; path = Carthage/Build/Mac/Base32.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ABAD70281BCEC0AD00E8C82C /* Base32.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -89,6 +94,7 @@
 		AB2C2A811BC3E56A006A28CB = {
 			isa = PBXGroup;
 			children = (
+				ABAD70271BCEC0AD00E8C82C /* Base32.framework */,
 				AB2C2AB91BC3ED4C006A28CB /* SwiftHex.framework */,
 				AB2C2ABA1BC3ED4C006A28CB /* VarInt.framework */,
 				AB2C2A8D1BC3E56A006A28CB /* SwiftMultiaddress */,
