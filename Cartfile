@@ -1,3 +1,5 @@
 github "NeoTeo/VarInt"
 github "NeoTeo/SwiftHex"
+github "NeoTeo/SwiftBase58"
 github "norio-nomura/Base32"
+

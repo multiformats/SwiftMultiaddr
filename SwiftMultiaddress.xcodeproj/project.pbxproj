@@ -23,6 +23,7 @@
 		AB472A411BCC27D4005CCD17 /* IpUtilTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB472A401BCC27D4005CCD17 /* IpUtilTests.swift */; };
 		ABAD70281BCEC0AD00E8C82C /* Base32.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABAD70271BCEC0AD00E8C82C /* Base32.framework */; };
 		ABAD702A1BCEC20900E8C82C /* Base32.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = ABAD70271BCEC0AD00E8C82C /* Base32.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		ABC2181C1BCFD9520014F5BB /* SwiftBase58.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABC2181B1BCFD9520014F5BB /* SwiftBase58.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +68,7 @@
 		AB472A3E1BC7CF9F005CCD17 /* IPUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IPUtil.swift; sourceTree = "<group>"; };
 		AB472A401BCC27D4005CCD17 /* IpUtilTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IpUtilTests.swift; sourceTree = "<group>"; };
 		ABAD70271BCEC0AD00E8C82C /* Base32.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Base32.framework; path = Carthage/Build/Mac/Base32.framework; sourceTree = "<group>"; };
+		ABC2181B1BCFD9520014F5BB /* SwiftBase58.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftBase58.framework; path = Carthage/Build/Mac/SwiftBase58.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ABC2181C1BCFD9520014F5BB /* SwiftBase58.framework in Frameworks */,
 				ABAD70281BCEC0AD00E8C82C /* Base32.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -94,6 +97,7 @@
 		AB2C2A811BC3E56A006A28CB = {
 			isa = PBXGroup;
 			children = (
+				ABC2181B1BCFD9520014F5BB /* SwiftBase58.framework */,
 				ABAD70271BCEC0AD00E8C82C /* Base32.framework */,
 				AB2C2AB91BC3ED4C006A28CB /* SwiftHex.framework */,
 				AB2C2ABA1BC3ED4C006A28CB /* VarInt.framework */,

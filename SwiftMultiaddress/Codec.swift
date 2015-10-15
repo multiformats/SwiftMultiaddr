@@ -131,6 +131,9 @@ func addressStringToBytes(proto: Protocol, addrString: String) throws -> [UInt8]
         onionBytes += portBytes
         
         return onionBytes
+        
+    case P_IPFS:
+        return nil
     default:
         throw CodecError.ParseAddressFail
     }
