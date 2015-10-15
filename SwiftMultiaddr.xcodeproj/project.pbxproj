@@ -7,23 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AB2C2A8F1BC3E56A006A28CB /* SwiftMultiaddress.h in Headers */ = {isa = PBXBuildFile; fileRef = AB2C2A8E1BC3E56A006A28CB /* SwiftMultiaddress.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AB2C2A961BC3E56A006A28CB /* SwiftMultiaddress.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB2C2A8B1BC3E56A006A28CB /* SwiftMultiaddress.framework */; };
-		AB2C2A9B1BC3E56A006A28CB /* SwiftMultiaddressTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2C2A9A1BC3E56A006A28CB /* SwiftMultiaddressTests.swift */; };
+		AB2C2A8F1BC3E56A006A28CB /* SwiftMultiaddr.h in Headers */ = {isa = PBXBuildFile; fileRef = AB2C2A8E1BC3E56A006A28CB /* SwiftMultiaddr.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AB2C2A961BC3E56A006A28CB /* SwiftMultiaddr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB2C2A8B1BC3E56A006A28CB /* SwiftMultiaddr.framework */; };
 		AB2C2AAF1BC3E610006A28CB /* Codec.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2C2AAB1BC3E610006A28CB /* Codec.swift */; };
-		AB2C2AB01BC3E610006A28CB /* MultiAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2C2AAC1BC3E610006A28CB /* MultiAddress.swift */; };
+		AB2C2AB01BC3E610006A28CB /* MultiAddr.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2C2AAC1BC3E610006A28CB /* MultiAddr.swift */; };
 		AB2C2AB11BC3E610006A28CB /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2C2AAD1BC3E610006A28CB /* Protocols.swift */; };
-		AB2C2AB51BC3E62A006A28CB /* CodecTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2C2AB31BC3E62A006A28CB /* CodecTests.swift */; };
-		AB2C2AB61BC3E62A006A28CB /* ProtocolsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2C2AB41BC3E62A006A28CB /* ProtocolsTest.swift */; };
 		AB2C2ABD1BC3EDC9006A28CB /* SwiftHex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB2C2AB91BC3ED4C006A28CB /* SwiftHex.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		AB2C2ABE1BC3EE79006A28CB /* VarInt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB2C2ABA1BC3ED4C006A28CB /* VarInt.framework */; };
 		AB2C2AC91BC3F234006A28CB /* SwiftHex.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB2C2AB91BC3ED4C006A28CB /* SwiftHex.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AB2C2ACA1BC3F234006A28CB /* VarInt.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB2C2ABA1BC3ED4C006A28CB /* VarInt.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AB472A3F1BC7CF9F005CCD17 /* IPUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB472A3E1BC7CF9F005CCD17 /* IPUtil.swift */; };
-		AB472A411BCC27D4005CCD17 /* IpUtilTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB472A401BCC27D4005CCD17 /* IpUtilTests.swift */; };
 		ABAD70281BCEC0AD00E8C82C /* Base32.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABAD70271BCEC0AD00E8C82C /* Base32.framework */; };
 		ABAD702A1BCEC20900E8C82C /* Base32.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = ABAD70271BCEC0AD00E8C82C /* Base32.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		ABC2181C1BCFD9520014F5BB /* SwiftBase58.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABC2181B1BCFD9520014F5BB /* SwiftBase58.framework */; };
+		ABADB5AE1BCFE94C00B85AC4 /* SwiftMultihash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABADB5AD1BCFE94C00B85AC4 /* SwiftMultihash.framework */; };
+		ABADB5B31BCFED3200B85AC4 /* SwiftMultihash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABADB5AD1BCFE94C00B85AC4 /* SwiftMultihash.framework */; };
+		ABADB5B41BCFED4800B85AC4 /* SwiftMultihash.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = ABADB5AD1BCFE94C00B85AC4 /* SwiftMultihash.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		ABADB5B51BCFEDA700B85AC4 /* SwiftBase58.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABC2181B1BCFD9520014F5BB /* SwiftBase58.framework */; };
+		ABADB5B61BCFEDD400B85AC4 /* SwiftBase58.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = ABC2181B1BCFD9520014F5BB /* SwiftBase58.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		ABC1FE401BD04B4500546D3E /* CodecTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC1FE3F1BD04B4500546D3E /* CodecTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +44,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				ABADB5B61BCFEDD400B85AC4 /* SwiftBase58.framework in CopyFiles */,
+				ABADB5B41BCFED4800B85AC4 /* SwiftMultihash.framework in CopyFiles */,
 				ABAD702A1BCEC20900E8C82C /* Base32.framework in CopyFiles */,
 				AB2C2AC91BC3F234006A28CB /* SwiftHex.framework in CopyFiles */,
 				AB2C2ACA1BC3F234006A28CB /* VarInt.framework in CopyFiles */,
@@ -52,22 +55,20 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		AB2C2A8B1BC3E56A006A28CB /* SwiftMultiaddress.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftMultiaddress.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		AB2C2A8E1BC3E56A006A28CB /* SwiftMultiaddress.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftMultiaddress.h; sourceTree = "<group>"; };
+		AB2C2A8B1BC3E56A006A28CB /* SwiftMultiaddr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftMultiaddr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AB2C2A8E1BC3E56A006A28CB /* SwiftMultiaddr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftMultiaddr.h; sourceTree = "<group>"; };
 		AB2C2A901BC3E56A006A28CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AB2C2A951BC3E56A006A28CB /* SwiftMultiaddressTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftMultiaddressTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		AB2C2A9A1BC3E56A006A28CB /* SwiftMultiaddressTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftMultiaddressTests.swift; sourceTree = "<group>"; };
+		AB2C2A951BC3E56A006A28CB /* SwiftMultiaddrTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftMultiaddrTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB2C2A9C1BC3E56A006A28CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AB2C2AAB1BC3E610006A28CB /* Codec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Codec.swift; sourceTree = "<group>"; };
-		AB2C2AAC1BC3E610006A28CB /* MultiAddress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiAddress.swift; sourceTree = "<group>"; };
+		AB2C2AAC1BC3E610006A28CB /* MultiAddr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiAddr.swift; sourceTree = "<group>"; };
 		AB2C2AAD1BC3E610006A28CB /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
-		AB2C2AB31BC3E62A006A28CB /* CodecTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodecTests.swift; sourceTree = "<group>"; };
-		AB2C2AB41BC3E62A006A28CB /* ProtocolsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProtocolsTest.swift; sourceTree = "<group>"; };
 		AB2C2AB91BC3ED4C006A28CB /* SwiftHex.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftHex.framework; path = Carthage/Build/Mac/SwiftHex.framework; sourceTree = "<group>"; };
 		AB2C2ABA1BC3ED4C006A28CB /* VarInt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VarInt.framework; path = Carthage/Build/Mac/VarInt.framework; sourceTree = "<group>"; };
 		AB472A3E1BC7CF9F005CCD17 /* IPUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IPUtil.swift; sourceTree = "<group>"; };
-		AB472A401BCC27D4005CCD17 /* IpUtilTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IpUtilTests.swift; sourceTree = "<group>"; };
 		ABAD70271BCEC0AD00E8C82C /* Base32.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Base32.framework; path = Carthage/Build/Mac/Base32.framework; sourceTree = "<group>"; };
+		ABADB5AD1BCFE94C00B85AC4 /* SwiftMultihash.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftMultihash.framework; path = Carthage/Build/Mac/SwiftMultihash.framework; sourceTree = "<group>"; };
+		ABC1FE3F1BD04B4500546D3E /* CodecTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodecTests.swift; sourceTree = "<group>"; };
 		ABC2181B1BCFD9520014F5BB /* SwiftBase58.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftBase58.framework; path = Carthage/Build/Mac/SwiftBase58.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -76,7 +77,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ABC2181C1BCFD9520014F5BB /* SwiftBase58.framework in Frameworks */,
+				ABADB5AE1BCFE94C00B85AC4 /* SwiftMultihash.framework in Frameworks */,
 				ABAD70281BCEC0AD00E8C82C /* Base32.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -85,9 +86,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ABADB5B31BCFED3200B85AC4 /* SwiftMultihash.framework in Frameworks */,
+				ABADB5B51BCFEDA700B85AC4 /* SwiftBase58.framework in Frameworks */,
 				AB2C2ABD1BC3EDC9006A28CB /* SwiftHex.framework in Frameworks */,
 				AB2C2ABE1BC3EE79006A28CB /* VarInt.framework in Frameworks */,
-				AB2C2A961BC3E56A006A28CB /* SwiftMultiaddress.framework in Frameworks */,
+				AB2C2A961BC3E56A006A28CB /* SwiftMultiaddr.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,12 +100,13 @@
 		AB2C2A811BC3E56A006A28CB = {
 			isa = PBXGroup;
 			children = (
+				ABADB5AD1BCFE94C00B85AC4 /* SwiftMultihash.framework */,
 				ABC2181B1BCFD9520014F5BB /* SwiftBase58.framework */,
 				ABAD70271BCEC0AD00E8C82C /* Base32.framework */,
 				AB2C2AB91BC3ED4C006A28CB /* SwiftHex.framework */,
 				AB2C2ABA1BC3ED4C006A28CB /* VarInt.framework */,
-				AB2C2A8D1BC3E56A006A28CB /* SwiftMultiaddress */,
-				AB2C2A991BC3E56A006A28CB /* SwiftMultiaddressTests */,
+				AB2C2A8D1BC3E56A006A28CB /* SwiftMultiaddr */,
+				AB2C2A991BC3E56A006A28CB /* SwiftMultiaddrTests */,
 				AB2C2A8C1BC3E56A006A28CB /* Products */,
 			);
 			sourceTree = "<group>";
@@ -110,35 +114,32 @@
 		AB2C2A8C1BC3E56A006A28CB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				AB2C2A8B1BC3E56A006A28CB /* SwiftMultiaddress.framework */,
-				AB2C2A951BC3E56A006A28CB /* SwiftMultiaddressTests.xctest */,
+				AB2C2A8B1BC3E56A006A28CB /* SwiftMultiaddr.framework */,
+				AB2C2A951BC3E56A006A28CB /* SwiftMultiaddrTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		AB2C2A8D1BC3E56A006A28CB /* SwiftMultiaddress */ = {
+		AB2C2A8D1BC3E56A006A28CB /* SwiftMultiaddr */ = {
 			isa = PBXGroup;
 			children = (
 				AB2C2AAB1BC3E610006A28CB /* Codec.swift */,
-				AB2C2AAC1BC3E610006A28CB /* MultiAddress.swift */,
+				AB2C2AAC1BC3E610006A28CB /* MultiAddr.swift */,
 				AB2C2AAD1BC3E610006A28CB /* Protocols.swift */,
-				AB2C2A8E1BC3E56A006A28CB /* SwiftMultiaddress.h */,
+				AB2C2A8E1BC3E56A006A28CB /* SwiftMultiaddr.h */,
 				AB2C2A901BC3E56A006A28CB /* Info.plist */,
 				AB472A3E1BC7CF9F005CCD17 /* IPUtil.swift */,
 			);
-			path = SwiftMultiaddress;
+			path = SwiftMultiaddr;
 			sourceTree = "<group>";
 		};
-		AB2C2A991BC3E56A006A28CB /* SwiftMultiaddressTests */ = {
+		AB2C2A991BC3E56A006A28CB /* SwiftMultiaddrTests */ = {
 			isa = PBXGroup;
 			children = (
-				AB2C2AB31BC3E62A006A28CB /* CodecTests.swift */,
-				AB2C2AB41BC3E62A006A28CB /* ProtocolsTest.swift */,
-				AB2C2A9A1BC3E56A006A28CB /* SwiftMultiaddressTests.swift */,
+				ABC1FE3F1BD04B4500546D3E /* CodecTests.swift */,
 				AB2C2A9C1BC3E56A006A28CB /* Info.plist */,
-				AB472A401BCC27D4005CCD17 /* IpUtilTests.swift */,
 			);
-			path = SwiftMultiaddressTests;
+			path = SwiftMultiaddrTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -148,16 +149,16 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AB2C2A8F1BC3E56A006A28CB /* SwiftMultiaddress.h in Headers */,
+				AB2C2A8F1BC3E56A006A28CB /* SwiftMultiaddr.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		AB2C2A8A1BC3E56A006A28CB /* SwiftMultiaddress */ = {
+		AB2C2A8A1BC3E56A006A28CB /* SwiftMultiaddr */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = AB2C2A9F1BC3E56A006A28CB /* Build configuration list for PBXNativeTarget "SwiftMultiaddress" */;
+			buildConfigurationList = AB2C2A9F1BC3E56A006A28CB /* Build configuration list for PBXNativeTarget "SwiftMultiaddr" */;
 			buildPhases = (
 				AB2C2A861BC3E56A006A28CB /* Sources */,
 				AB2C2A871BC3E56A006A28CB /* Frameworks */,
@@ -168,14 +169,14 @@
 			);
 			dependencies = (
 			);
-			name = SwiftMultiaddress;
+			name = SwiftMultiaddr;
 			productName = SwiftMultiaddress;
-			productReference = AB2C2A8B1BC3E56A006A28CB /* SwiftMultiaddress.framework */;
+			productReference = AB2C2A8B1BC3E56A006A28CB /* SwiftMultiaddr.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		AB2C2A941BC3E56A006A28CB /* SwiftMultiaddressTests */ = {
+		AB2C2A941BC3E56A006A28CB /* SwiftMultiaddrTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = AB2C2AA21BC3E56A006A28CB /* Build configuration list for PBXNativeTarget "SwiftMultiaddressTests" */;
+			buildConfigurationList = AB2C2AA21BC3E56A006A28CB /* Build configuration list for PBXNativeTarget "SwiftMultiaddrTests" */;
 			buildPhases = (
 				AB2C2A911BC3E56A006A28CB /* Sources */,
 				AB2C2A921BC3E56A006A28CB /* Frameworks */,
@@ -187,9 +188,9 @@
 			dependencies = (
 				AB2C2A981BC3E56A006A28CB /* PBXTargetDependency */,
 			);
-			name = SwiftMultiaddressTests;
+			name = SwiftMultiaddrTests;
 			productName = SwiftMultiaddressTests;
-			productReference = AB2C2A951BC3E56A006A28CB /* SwiftMultiaddressTests.xctest */;
+			productReference = AB2C2A951BC3E56A006A28CB /* SwiftMultiaddrTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -209,7 +210,7 @@
 					};
 				};
 			};
-			buildConfigurationList = AB2C2A851BC3E56A006A28CB /* Build configuration list for PBXProject "SwiftMultiaddress" */;
+			buildConfigurationList = AB2C2A851BC3E56A006A28CB /* Build configuration list for PBXProject "SwiftMultiaddr" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -221,8 +222,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				AB2C2A8A1BC3E56A006A28CB /* SwiftMultiaddress */,
-				AB2C2A941BC3E56A006A28CB /* SwiftMultiaddressTests */,
+				AB2C2A8A1BC3E56A006A28CB /* SwiftMultiaddr */,
+				AB2C2A941BC3E56A006A28CB /* SwiftMultiaddrTests */,
 			);
 		};
 /* End PBXProject section */
@@ -250,7 +251,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AB2C2AB11BC3E610006A28CB /* Protocols.swift in Sources */,
-				AB2C2AB01BC3E610006A28CB /* MultiAddress.swift in Sources */,
+				AB2C2AB01BC3E610006A28CB /* MultiAddr.swift in Sources */,
 				AB472A3F1BC7CF9F005CCD17 /* IPUtil.swift in Sources */,
 				AB2C2AAF1BC3E610006A28CB /* Codec.swift in Sources */,
 			);
@@ -260,10 +261,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AB2C2AB51BC3E62A006A28CB /* CodecTests.swift in Sources */,
-				AB2C2A9B1BC3E56A006A28CB /* SwiftMultiaddressTests.swift in Sources */,
-				AB472A411BCC27D4005CCD17 /* IpUtilTests.swift in Sources */,
-				AB2C2AB61BC3E62A006A28CB /* ProtocolsTest.swift in Sources */,
+				ABC1FE401BD04B4500546D3E /* CodecTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,7 +270,7 @@
 /* Begin PBXTargetDependency section */
 		AB2C2A981BC3E56A006A28CB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = AB2C2A8A1BC3E56A006A28CB /* SwiftMultiaddress */;
+			target = AB2C2A8A1BC3E56A006A28CB /* SwiftMultiaddr */;
 			targetProxy = AB2C2A971BC3E56A006A28CB /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -379,11 +377,11 @@
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
 				);
 				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = SwiftMultiaddress/Info.plist;
+				INFOPLIST_FILE = SwiftMultiaddr/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "Terminal-Glow.SwiftMultiaddress";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "Terminal-Glow.SwiftMultiaddr";
+				PRODUCT_NAME = SwiftMultiaddr;
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -405,11 +403,11 @@
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
 				);
 				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = SwiftMultiaddress/Info.plist;
+				INFOPLIST_FILE = SwiftMultiaddr/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "Terminal-Glow.SwiftMultiaddress";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "Terminal-Glow.SwiftMultiaddr";
+				PRODUCT_NAME = SwiftMultiaddr;
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 			};
@@ -418,37 +416,42 @@
 		AB2C2AA31BC3E56A006A28CB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
 				);
-				INFOPLIST_FILE = SwiftMultiaddressTests/Info.plist;
+				INFOPLIST_FILE = SwiftMultiaddrTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "Terminal-Glow.SwiftMultiaddressTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "Terminal-Glow.SwiftMultiaddrTests";
+				PRODUCT_NAME = SwiftMultiaddrTests;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		AB2C2AA41BC3E56A006A28CB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
 				);
-				INFOPLIST_FILE = SwiftMultiaddressTests/Info.plist;
+				INFOPLIST_FILE = SwiftMultiaddrTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "Terminal-Glow.SwiftMultiaddressTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "Terminal-Glow.SwiftMultiaddrTests";
+				PRODUCT_NAME = SwiftMultiaddrTests;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		AB2C2A851BC3E56A006A28CB /* Build configuration list for PBXProject "SwiftMultiaddress" */ = {
+		AB2C2A851BC3E56A006A28CB /* Build configuration list for PBXProject "SwiftMultiaddr" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AB2C2A9D1BC3E56A006A28CB /* Debug */,
@@ -457,7 +460,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		AB2C2A9F1BC3E56A006A28CB /* Build configuration list for PBXNativeTarget "SwiftMultiaddress" */ = {
+		AB2C2A9F1BC3E56A006A28CB /* Build configuration list for PBXNativeTarget "SwiftMultiaddr" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AB2C2AA01BC3E56A006A28CB /* Debug */,
@@ -466,7 +469,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		AB2C2AA21BC3E56A006A28CB /* Build configuration list for PBXNativeTarget "SwiftMultiaddressTests" */ = {
+		AB2C2AA21BC3E56A006A28CB /* Build configuration list for PBXNativeTarget "SwiftMultiaddrTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AB2C2AA31BC3E56A006A28CB /* Debug */,

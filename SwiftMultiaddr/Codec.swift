@@ -1,13 +1,14 @@
 //
 //  Codec.swift
-//  SwiftMultiAddress
+//  SwiftMultiAddr
 //
-//  Created by Teo on 04/10/15.
-//  Copyright © 2015 Teo Sartori. All rights reserved.
+//  Created by Matteo Sartori on 04/10/15.
 //
+//  Licensed under MIT See LICENCE file in the root of this project for details. 
 
 import Foundation
 import Base32
+import SwiftMultihash
 
 enum CodecError : ErrorType {
     case InvalidMultiAddress
@@ -21,9 +22,10 @@ enum CodecError : ErrorType {
     case NoPortNumber
     case NotTorOnion
     case FailedBase32Decoding
+    case IPFSInconsistentLength
 }
 
-func stringToBytes(multiAddrStr: String) throws -> [UInt8]? {
+func stringToBytes(multiAddrStr: String) throws -> [UInt8] {
     
     let tmpString = trimRight(multiAddrStr, charSet: NSCharacterSet(charactersInString: "/"))
     var protoComponents = tmpString.characters.split{$0 == "/"}.map(String.init)
@@ -133,7 +135,13 @@ func addressStringToBytes(proto: Protocol, addrString: String) throws -> [UInt8]
         return onionBytes
         
     case P_IPFS:
-        return nil
+
+        let addr = try SwiftMultihash.fromB58String(addrString)
+        /// the ipfsBytes start with the size
+        var ipfsBytes = codeToVarint(addr.value.count)
+        ipfsBytes += addr.value
+        
+        return ipfsBytes
     default:
         throw CodecError.ParseAddressFail
     }
@@ -149,6 +157,17 @@ func addressBytesToString(proto: Protocol, buffer: [UInt8]) throws -> String {
         
         if buffer.count != 2 { throw CodecError.ParseAddressFail }
         return String(UInt16(buffer[0]) << 8 | UInt16(buffer[1]))
+        
+    case P_IPFS:
+        
+        var tmpBuffer = buffer
+        let (_, bytesRead) = readVarIntCode(buffer)
+        tmpBuffer = Array<UInt8>(buffer[bytesRead..<buffer.count])
+
+        if tmpBuffer.count != bytesRead { throw CodecError.IPFSInconsistentLength }
+        
+        let multihash = try SwiftMultihash.cast(tmpBuffer)
+        return SwiftMultihash.b58String(multihash)
         
     default: break
     }

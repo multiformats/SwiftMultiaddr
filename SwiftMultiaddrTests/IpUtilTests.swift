@@ -2,12 +2,12 @@
 //  IpUtilTests.swift
 //  SwiftMultiaddress
 //
-//  Created by Teo on 12/10/15.
-//  Copyright © 2015 Teo Sartori. All rights reserved.
+//  Created by Matteo Sartori on 12/10/15.
 //
+//  Licensed under MIT See LICENCE file in the root of this project for details. 
 
 import XCTest
-@testable import SwiftMultiaddress
+@testable import SwiftMultiaddr
 
 class IpUtilTests: XCTestCase {
 

@@ -2,9 +2,9 @@
 //  ProtocolsTest.swift
 //  SwiftMultiAddress
 //
-//  Created by Teo on 05/10/15.
-//  Copyright © 2015 Teo Sartori. All rights reserved.
+//  Created by Matteo Sartori on 05/10/15.
 //
+//  Licensed under MIT See LICENCE file in the root of this project for details. 
 
 import XCTest
 

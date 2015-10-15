@@ -1,9 +1,8 @@
 //
 //  IPUtil.swift
-//  SwiftMultiaddress
+//  SwiftMultiaddr
 //
-//  Created by Teo on 09/10/15.
-//  Copyright © 2015 Teo Sartori. All rights reserved.
+//  Created by Matteo Sartori on 09/10/15.
 //  Licensed under MIT See LICENCE file in the root of this project for details. 
 //
 

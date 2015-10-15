@@ -1,14 +1,13 @@
 //
 //  CodecTests.swift
-//  SwiftMultiAddress
+//  SwiftMultiAddr
 //
-//  Created by Teo on 05/10/15.
-//  Copyright © 2015 Teo Sartori. All rights reserved.
+//  Created by Matteo Sartori on 05/10/15.
 //
 //  Licensed under MIT See LICENCE file in the root of this project for details. 
 
 import XCTest
-@testable import SwiftMultiaddress
+@testable import SwiftMultiaddr
 import SwiftHex
 
 class CodecTests: XCTestCase {
@@ -39,10 +38,7 @@ class CodecTests: XCTestCase {
         
         let testString = { (address: String, hex: String) in
             let decodedHex = try SwiftHex.decodeString(hex)
-            guard let encodedAddress = try stringToBytes(address) else {
-                XCTFail()
-                return
-            }
+            let encodedAddress = try stringToBytes(address)
             
             XCTAssert(decodedHex == encodedAddress)
         }

@@ -2,14 +2,14 @@
 //  SwiftMultiaddressTests.swift
 //  SwiftMultiaddressTests
 //
-//  Created by Teo on 06/10/15.
-//  Copyright © 2015 Teo Sartori. All rights reserved.
+//  Created by Matteo Sartori on 06/10/15.
 //
+//  Licensed under MIT See LICENCE file in the root of this project for details. 
 
 import XCTest
-@testable import SwiftMultiaddress
+@testable import SwiftMultiaddr
 
-class SwiftMultiaddressTests: XCTestCase {
+class SwiftMultiaddrTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
@@ -33,7 +33,7 @@ class SwiftMultiaddressTests: XCTestCase {
         }
     }
     
-    func testMultiAddressConstruction() {
+    func testMultiAddrConstruction() {
     
         let failCases: [String] = [
             "/ip4",
@@ -77,35 +77,35 @@ class SwiftMultiaddressTests: XCTestCase {
             "/sctp/1234",
             "/udp/65535",
             "/tcp/65535",
-//            "/ipfs/QmcgpsyWgH8Y8ajJz1Cu72KnS5uo2Aa2LpzU7kinSupNKC",
+            "/ipfs/QmcgpsyWgH8Y8ajJz1Cu72KnS5uo2Aa2LpzU7kinSupNKC",
             "/udp/1234/sctp/1234",
             "/udp/1234/udt",
             "/udp/1234/utp",
             "/tcp/1234/http",
             "/tcp/1234/https",
-//            "/ipfs/QmcgpsyWgH8Y8ajJz1Cu72KnS5uo2Aa2LpzU7kinSupNKC/tcp/1234",
+            "/ipfs/QmcgpsyWgH8Y8ajJz1Cu72KnS5uo2Aa2LpzU7kinSupNKC/tcp/1234",
             "/ip4/127.0.0.1/udp/1234",
             "/ip4/127.0.0.1/udp/0",
             "/ip4/127.0.0.1/tcp/1234",
             "/ip4/127.0.0.1/tcp/1234/",
-//            "/ip4/127.0.0.1/ipfs/QmcgpsyWgH8Y8ajJz1Cu72KnS5uo2Aa2LpzU7kinSupNKC",
-//            "/ip4/127.0.0.1/ipfs/QmcgpsyWgH8Y8ajJz1Cu72KnS5uo2Aa2LpzU7kinSupNKC/tcp/1234"
+            "/ip4/127.0.0.1/ipfs/QmcgpsyWgH8Y8ajJz1Cu72KnS5uo2Aa2LpzU7kinSupNKC",
+            "/ip4/127.0.0.1/ipfs/QmcgpsyWgH8Y8ajJz1Cu72KnS5uo2Aa2LpzU7kinSupNKC/tcp/1234"
         ]
         
         
         /// First we test for cases that need to fail the construction to pass the test
         for testCase in failCases {
             do {
-                try newMultiAddr(testCase)
+                try newMultiaddr(testCase)
                 XCTFail("The constructor should have failed.")
             } catch {}
         }
         
         for testCase in passCases {
             do {
-                if let multiAddress = try newMultiAddr(testCase) {
-                    print(multiAddress)
-                }
+                let multiaddress = try newMultiaddr(testCase)
+                print(multiaddress)
+                
                 
             } catch {
                 print("Error:",error)

@@ -1,8 +1,8 @@
 //
 //  Protocols.swift
-//  SwiftMultiAddress
+//  SwiftMultiAddr
 //
-//  Created by Teo on 30/09/15.
+//  Created by Matteo Sartori on 30/09/15.
 //  Licensed under MIT See LICENCE for details
 //
 
