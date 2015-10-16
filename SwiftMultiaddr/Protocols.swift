@@ -9,7 +9,7 @@
 import Foundation
 import VarInt
 
-struct Protocol {
+public struct Protocol {
     let code: Int
     let size: Int
     let name: String

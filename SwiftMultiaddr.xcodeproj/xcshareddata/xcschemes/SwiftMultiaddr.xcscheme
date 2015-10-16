@@ -34,7 +34,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "AB2C2A941BC3E56A006A28CB"
-               BuildableName = "SwiftMultiaddr.xctest"
+               BuildableName = "SwiftMultiaddrTests.xctest"
                BlueprintName = "SwiftMultiaddrTests"
                ReferencedContainer = "container:SwiftMultiaddr.xcodeproj">
             </BuildableReference>

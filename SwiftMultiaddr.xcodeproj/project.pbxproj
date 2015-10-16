@@ -25,6 +25,9 @@
 		ABADB5B51BCFEDA700B85AC4 /* SwiftBase58.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABC2181B1BCFD9520014F5BB /* SwiftBase58.framework */; };
 		ABADB5B61BCFEDD400B85AC4 /* SwiftBase58.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = ABC2181B1BCFD9520014F5BB /* SwiftBase58.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		ABC1FE401BD04B4500546D3E /* CodecTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC1FE3F1BD04B4500546D3E /* CodecTests.swift */; };
+		ABC1FE571BD10A4C00546D3E /* IpUtilTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC1FE541BD10A4C00546D3E /* IpUtilTests.swift */; };
+		ABC1FE581BD10A4C00546D3E /* ProtocolsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC1FE551BD10A4C00546D3E /* ProtocolsTest.swift */; };
+		ABC1FE591BD10A4C00546D3E /* SwiftMultiaddrTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC1FE561BD10A4C00546D3E /* SwiftMultiaddrTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +72,9 @@
 		ABAD70271BCEC0AD00E8C82C /* Base32.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Base32.framework; path = Carthage/Build/Mac/Base32.framework; sourceTree = "<group>"; };
 		ABADB5AD1BCFE94C00B85AC4 /* SwiftMultihash.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftMultihash.framework; path = Carthage/Build/Mac/SwiftMultihash.framework; sourceTree = "<group>"; };
 		ABC1FE3F1BD04B4500546D3E /* CodecTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodecTests.swift; sourceTree = "<group>"; };
+		ABC1FE541BD10A4C00546D3E /* IpUtilTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IpUtilTests.swift; sourceTree = "<group>"; };
+		ABC1FE551BD10A4C00546D3E /* ProtocolsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProtocolsTest.swift; sourceTree = "<group>"; };
+		ABC1FE561BD10A4C00546D3E /* SwiftMultiaddrTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftMultiaddrTests.swift; sourceTree = "<group>"; };
 		ABC2181B1BCFD9520014F5BB /* SwiftBase58.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftBase58.framework; path = Carthage/Build/Mac/SwiftBase58.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -136,6 +142,9 @@
 		AB2C2A991BC3E56A006A28CB /* SwiftMultiaddrTests */ = {
 			isa = PBXGroup;
 			children = (
+				ABC1FE541BD10A4C00546D3E /* IpUtilTests.swift */,
+				ABC1FE551BD10A4C00546D3E /* ProtocolsTest.swift */,
+				ABC1FE561BD10A4C00546D3E /* SwiftMultiaddrTests.swift */,
 				ABC1FE3F1BD04B4500546D3E /* CodecTests.swift */,
 				AB2C2A9C1BC3E56A006A28CB /* Info.plist */,
 			);
@@ -261,7 +270,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ABC1FE571BD10A4C00546D3E /* IpUtilTests.swift in Sources */,
 				ABC1FE401BD04B4500546D3E /* CodecTests.swift in Sources */,
+				ABC1FE591BD10A4C00546D3E /* SwiftMultiaddrTests.swift in Sources */,
+				ABC1FE581BD10A4C00546D3E /* ProtocolsTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
