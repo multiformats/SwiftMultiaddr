@@ -138,7 +138,7 @@ class SwiftMultiaddrTests: XCTestCase {
             
             /** Here decapsulate will throw because it will attempt to create a
              empty Multiaddr and fail. Failing this is correct and passes the
-             test by dropping into the empty catch.
+             test by dropping into the empty catch./Volumes/HAL/music/Bram.Stokers.Dracula.1CD.1992.OST.[WmC]
              */
             let m4  = try newMultiaddr("/ip4/127.0.0.1")
             do {

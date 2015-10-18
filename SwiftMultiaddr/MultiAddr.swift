@@ -9,12 +9,12 @@
 import Foundation
 
 public struct Multiaddr {
-    private let bytes: [UInt8]
+    private let _bytes: [UInt8]
 }
 
 public func newMultiaddr(addrString: String) throws -> Multiaddr {
     let multiaddressBytes = try stringToBytes(addrString)
-    return Multiaddr(bytes: multiaddressBytes)
+    return Multiaddr(_bytes: multiaddressBytes)
 }
 
 public func newMultiaddrBytes(address: [UInt8]) throws -> Multiaddr {
@@ -24,15 +24,19 @@ public func newMultiaddrBytes(address: [UInt8]) throws -> Multiaddr {
 
 extension Multiaddr {
     
+    public func bytes() -> [UInt8] {
+        return _bytes
+    }
+    
     /// string returns the string representation of a Multiaddr
     public func string() throws -> String {
-        let maString = try bytesToString(bytes)
+        let maString = try bytesToString(_bytes)
         return maString
     }
     
     public func Protocols() throws -> [Protocol] {
         var ps: [Protocol] = []
-        var b = bytes
+        var b = _bytes
         while b.count > 0 {
             
             let (code, n) = readVarIntCode(b)
@@ -52,7 +56,7 @@ extension Multiaddr {
     
     public func encapsulate(addr: Multiaddr) -> Multiaddr {
 
-        return Multiaddr(bytes: bytes + addr.bytes)
+        return Multiaddr(_bytes: _bytes + addr._bytes)
     }
     
     public func decapsulate(addr: Multiaddr) throws -> Multiaddr {
@@ -60,7 +64,7 @@ extension Multiaddr {
         let oldString = try string()
         let newString = try addr.string()
         guard let range = oldString.rangeOfString(newString, options: .BackwardsSearch) else {
-            return Multiaddr(bytes: bytes)
+            return Multiaddr(_bytes: _bytes)
         }
         let ma = try newMultiaddr(oldString.substringToIndex(range.startIndex))
         return ma
@@ -69,5 +73,5 @@ extension Multiaddr {
 
 /// Two Multiaddr are equal if their bytes are the same.
 func == (lhs: Multiaddr, rhs: Multiaddr) -> Bool {
-    return lhs.bytes == rhs.bytes
+    return lhs._bytes == rhs._bytes
 }
