@@ -7,7 +7,7 @@ Add the following to your Cartfile
 And in the root of your project type:
 	carthage update .
 
-For more information on how to install via Carthage see the [README][https://github.com/Carthage/Carthage#adding-frameworks-to-an-application]
+For more information on how to install via Carthage see the [README](https://github.com/Carthage/Carthage#adding-frameworks-to-an-application)
 
 ## Usage
 Add the SwiftMultiaddr.framework to your Xcode project:
