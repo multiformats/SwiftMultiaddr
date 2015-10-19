@@ -72,6 +72,6 @@ extension Multiaddr {
 }
 
 /// Two Multiaddr are equal if their bytes are the same.
-func == (lhs: Multiaddr, rhs: Multiaddr) -> Bool {
+public func == (lhs: Multiaddr, rhs: Multiaddr) -> Bool {
     return lhs._bytes == rhs._bytes
 }

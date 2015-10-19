@@ -35,7 +35,7 @@ import SwiftMultiaddr
 let addr = try! newMultiaddr("/ip4/127.0.0.1/udp/1234")
 
 /// Construct a MultiAddr from bytes
-let addr2 = try! newMultiAddrBytes(ma1.bytes)
+let addr2 = try! newMultiaddrBytes(addr.bytes())
 
 /// true
 addr.string() == "/ip4/127.0.0.1/udp/1234"
