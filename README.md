@@ -67,10 +67,10 @@ Multiaddr allows expressing tunnels in a very readable fashion.
 ```Swift
 let printer = try! newMultiaddr("/ip4/192.168.0.13/tcp/80")
 let proxy   = try! newMultiaddr("/ip4/10.20.30.40/tcp/443")
-let printerOverProxy = try! proxy.encapsulate(printer)
+let printerOverProxy = proxy.encapsulate(printer)
 /// /ip4/10.20.30.40/tcp/443/ip4/192.168.0.13/tcp/80
 
-let proxyAgain = try! printerOverProxy.decapsulate(printer) 
+let proxyAgain = printerOverProxy.decapsulate(printer) 
 /// /ip4/10.20.30.40/tcp/443
 ```
 ## Requirements
