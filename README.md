@@ -7,6 +7,8 @@ Add the following to your Cartfile
 And in the root of your project type:
 	carthage update .
 
+As of v0.4.1 of the Base32 framework, if you are running Swift 2.1, it is necessary to run the `carthage update --no-use-binaries` to ensure that the Base32 is recompiled using the same Swift version as the rest.
+
 For more information on how to install via Carthage see the [README](https://github.com/Carthage/Carthage#adding-frameworks-to-an-application)
 
 ## Usage
