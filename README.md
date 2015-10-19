@@ -1,11 +1,16 @@
-# Swift Multiaddr
-A [Multiaddr](https://github.com/jbenet/multiaddr) implementation in Swift.
+Swift Multiaddr
+===============
+
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+
+> A [Multiaddr](https://github.com/jbenet/multiaddr) implementation in Swift.
+
 ## Installation
 #### Carthage
 Add the following to your Cartfile
-	github "NeoTeo/Swiftmultiaddr"
+	`github "NeoTeo/Swiftmultiaddr"`
 And in the root of your project type:
-	carthage update .
+	`carthage update .`
 
 As of v0.4.1 of the Base32 framework, if you are running Swift 2.1, it is necessary to run the `carthage update --no-use-binaries` to ensure that the Base32 is recompiled using the same Swift version as the rest.
 
