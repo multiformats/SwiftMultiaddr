@@ -391,6 +391,7 @@
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = SwiftMultiaddr/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_DYLIB_INSTALL_NAME = "$(DYLIB_INSTALL_NAME_BASE:standardizepath)/$(EXECUTABLE_PATH)";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Terminal-Glow.SwiftMultiaddr";
 				PRODUCT_NAME = SwiftMultiaddr;
@@ -417,6 +418,7 @@
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = SwiftMultiaddr/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_DYLIB_INSTALL_NAME = "$(DYLIB_INSTALL_NAME_BASE:standardizepath)/$(EXECUTABLE_PATH)";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Terminal-Glow.SwiftMultiaddr";
 				PRODUCT_NAME = SwiftMultiaddr;

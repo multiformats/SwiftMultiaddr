@@ -20,9 +20,9 @@ For more information on how to install via Carthage see the [README](https://git
 Add the SwiftMultiaddr.framework to your Xcode project:
 - Select your target's `Build Phases` tab.
 
-- Select the `Link Binary With Libraries`, click the `+` and then `Add Other...` buttons.
+- Select the `Embed Frameworks`, select the Destination `Frameworks` and click the `+` to `Add Other...` buttons.
 
-- Navigate to the Carthage/Build/Mac directory in your project root and select the SwiftMultiaddr.framework. 
+- Navigate to the Carthage/Build/Mac directory in your project root and select all the frameworks in the folder.
 
 In your code, import SwiftMultiaddr.
 ## Example
@@ -31,15 +31,15 @@ In your code, import SwiftMultiaddr.
 import SwiftMultiaddr
 
 /// This does not handle try throwing errors. You should.
-/// Construct a MultiAddr from a string.
+/// Construct a Multiaddr from a string.
 let addr = try! newMultiaddr("/ip4/127.0.0.1/udp/1234")
 
-/// Construct a MultiAddr from bytes
+/// Construct a Multiaddr from bytes
 let addr2 = try! newMultiaddrBytes(addr.bytes())
 
 /// true
-addr.string() == "/ip4/127.0.0.1/udp/1234"
-addr.string() == addr2.string()
+try! addr.string() == "/ip4/127.0.0.1/udp/1234"
+try! addr.string() == addr2.string()
 addr.bytes() == addr2.bytes()
 addr == addr2
 ```
