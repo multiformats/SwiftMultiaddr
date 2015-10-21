@@ -161,10 +161,10 @@ func addressBytesToString(proto: Protocol, buffer: [UInt8]) throws -> String {
     case P_IPFS:
         
         var tmpBuffer = buffer
-        let (_, bytesRead) = readVarIntCode(buffer)
+        let (size, bytesRead) = readVarIntCode(buffer)
         tmpBuffer = Array<UInt8>(buffer[bytesRead..<buffer.count])
 
-        if tmpBuffer.count != bytesRead { throw CodecError.IPFSInconsistentLength }
+        if tmpBuffer.count != size { throw CodecError.IPFSInconsistentLength }
         
         let multihash = try SwiftMultihash.cast(tmpBuffer)
         return SwiftMultihash.b58String(multihash)
