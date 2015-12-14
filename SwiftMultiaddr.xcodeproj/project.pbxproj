@@ -14,16 +14,11 @@
 		AB2C2AB11BC3E610006A28CB /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2C2AAD1BC3E610006A28CB /* Protocols.swift */; };
 		AB2C2ABD1BC3EDC9006A28CB /* SwiftHex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB2C2AB91BC3ED4C006A28CB /* SwiftHex.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		AB2C2ABE1BC3EE79006A28CB /* VarInt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB2C2ABA1BC3ED4C006A28CB /* VarInt.framework */; };
-		AB2C2AC91BC3F234006A28CB /* SwiftHex.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB2C2AB91BC3ED4C006A28CB /* SwiftHex.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		AB2C2ACA1BC3F234006A28CB /* VarInt.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB2C2ABA1BC3ED4C006A28CB /* VarInt.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AB472A3F1BC7CF9F005CCD17 /* IPUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB472A3E1BC7CF9F005CCD17 /* IPUtil.swift */; };
 		ABAD70281BCEC0AD00E8C82C /* Base32.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABAD70271BCEC0AD00E8C82C /* Base32.framework */; };
-		ABAD702A1BCEC20900E8C82C /* Base32.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = ABAD70271BCEC0AD00E8C82C /* Base32.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		ABADB5AE1BCFE94C00B85AC4 /* SwiftMultihash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABADB5AD1BCFE94C00B85AC4 /* SwiftMultihash.framework */; };
 		ABADB5B31BCFED3200B85AC4 /* SwiftMultihash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABADB5AD1BCFE94C00B85AC4 /* SwiftMultihash.framework */; };
-		ABADB5B41BCFED4800B85AC4 /* SwiftMultihash.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = ABADB5AD1BCFE94C00B85AC4 /* SwiftMultihash.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		ABADB5B51BCFEDA700B85AC4 /* SwiftBase58.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABC2181B1BCFD9520014F5BB /* SwiftBase58.framework */; };
-		ABADB5B61BCFEDD400B85AC4 /* SwiftBase58.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = ABC2181B1BCFD9520014F5BB /* SwiftBase58.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		ABC1FE401BD04B4500546D3E /* CodecTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC1FE3F1BD04B4500546D3E /* CodecTests.swift */; };
 		ABC1FE571BD10A4C00546D3E /* IpUtilTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC1FE541BD10A4C00546D3E /* IpUtilTests.swift */; };
 		ABC1FE581BD10A4C00546D3E /* ProtocolsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC1FE551BD10A4C00546D3E /* ProtocolsTest.swift */; };
@@ -39,23 +34,6 @@
 			remoteInfo = SwiftMultiaddress;
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		AB2C2AC81BC3F1BA006A28CB /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				ABADB5B61BCFEDD400B85AC4 /* SwiftBase58.framework in CopyFiles */,
-				ABADB5B41BCFED4800B85AC4 /* SwiftMultihash.framework in CopyFiles */,
-				ABAD702A1BCEC20900E8C82C /* Base32.framework in CopyFiles */,
-				AB2C2AC91BC3F234006A28CB /* SwiftHex.framework in CopyFiles */,
-				AB2C2ACA1BC3F234006A28CB /* VarInt.framework in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		AB2C2A8B1BC3E56A006A28CB /* SwiftMultiaddr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftMultiaddr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -190,7 +168,7 @@
 				AB2C2A911BC3E56A006A28CB /* Sources */,
 				AB2C2A921BC3E56A006A28CB /* Frameworks */,
 				AB2C2A931BC3E56A006A28CB /* Resources */,
-				AB2C2AC81BC3F1BA006A28CB /* CopyFiles */,
+				AB82ECC61C1F4006002885CE /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -254,6 +232,22 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		AB82ECC61C1F4006002885CE /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# env # Uncomment this to see all the environment variables.\n\nFRAMEWORK_TARGET_PATH=$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH\nCARTHAGE_BUILD_PATH=$SRCROOT/Carthage/Build\n\n# Make sure the Frameworks dir exists.\nmkdir -p $FRAMEWORK_TARGET_PATH\n\nif [ \"$PLATFORM_NAME\" == \"macosx\" ]; then\nCARTHAGE_SOURCE_PATH=\"$CARTHAGE_BUILD_PATH/Mac\"\nelse\nif [ \"$PLATFORM_NAME\" == \"iphoneos\" ] || [ \"$PLATFORM_NAME\" == \"iphonesimulator\" ]; then\nCARTHAGE_SOURCE_PATH=\"$CARTHAGE_BUILD_PATH/iOS\"\nelse\necho \"Unknown platform name $PLATFORM_NAME\"\nexit 1\nfi\nfi\necho \"The source path\"$CARTHAGE_SOURCE_PATH\necho \"The target path\"$FRAMEWORK_TARGET_PATH\n\ncp -r $CARTHAGE_SOURCE_PATH/SwiftGMP.framework $FRAMEWORK_TARGET_PATH/SwiftGMP.framework\ncp -r $CARTHAGE_SOURCE_PATH/SwiftHex.framework $FRAMEWORK_TARGET_PATH/SwiftHex.framework\ncp -r $CARTHAGE_SOURCE_PATH/SwiftBase58.framework $FRAMEWORK_TARGET_PATH/SwiftBase58.framework\ncp -r $CARTHAGE_SOURCE_PATH/SwiftMultihash.framework $FRAMEWORK_TARGET_PATH/SwiftMultihash.framework\ncp -r $CARTHAGE_SOURCE_PATH/VarInt.framework $FRAMEWORK_TARGET_PATH/VarInt.framework\ncp -r $CARTHAGE_SOURCE_PATH/Base32.framework $FRAMEWORK_TARGET_PATH/Base32.framework";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		AB2C2A861BC3E56A006A28CB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -311,6 +305,19 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
+				"FRAMEWORK_SEARCH_PATHS[sdk=iphoneos*]" = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				"FRAMEWORK_SEARCH_PATHS[sdk=iphonesimulator*]" = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				"FRAMEWORK_SEARCH_PATHS[sdk=macosx*]" = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -325,6 +332,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -358,6 +366,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -366,6 +375,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
