@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AB2C2A8F1BC3E56A006A28CB /* SwiftMultiaddr.h in Headers */ = {isa = PBXBuildFile; fileRef = AB2C2A8E1BC3E56A006A28CB /* SwiftMultiaddr.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AB2C2AAF1BC3E610006A28CB /* Codec.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2C2AAB1BC3E610006A28CB /* Codec.swift */; };
 		AB2C2AB01BC3E610006A28CB /* MultiAddr.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2C2AAC1BC3E610006A28CB /* MultiAddr.swift */; };
 		AB2C2AB11BC3E610006A28CB /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2C2AAD1BC3E610006A28CB /* Protocols.swift */; };
@@ -30,14 +29,13 @@
 
 /* Begin PBXFileReference section */
 		AB2C2A8B1BC3E56A006A28CB /* SwiftMultiaddr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftMultiaddr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		AB2C2A8E1BC3E56A006A28CB /* SwiftMultiaddr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftMultiaddr.h; sourceTree = "<group>"; };
 		AB2C2A901BC3E56A006A28CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AB2C2A951BC3E56A006A28CB /* SwiftMultiaddrTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftMultiaddrTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB2C2A9C1BC3E56A006A28CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AB2C2AAB1BC3E610006A28CB /* Codec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Codec.swift; sourceTree = "<group>"; };
-		AB2C2AAC1BC3E610006A28CB /* MultiAddr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiAddr.swift; sourceTree = "<group>"; };
-		AB2C2AAD1BC3E610006A28CB /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
-		AB472A3E1BC7CF9F005CCD17 /* IPUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IPUtil.swift; sourceTree = "<group>"; };
+		AB2C2AAB1BC3E610006A28CB /* Codec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Codec.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		AB2C2AAC1BC3E610006A28CB /* MultiAddr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = MultiAddr.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		AB2C2AAD1BC3E610006A28CB /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Protocols.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		AB472A3E1BC7CF9F005CCD17 /* IPUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = IPUtil.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		ABC1FE3F1BD04B4500546D3E /* CodecTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodecTests.swift; sourceTree = "<group>"; };
 		ABC1FE541BD10A4C00546D3E /* IpUtilTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IpUtilTests.swift; sourceTree = "<group>"; };
 		ABC1FE551BD10A4C00546D3E /* ProtocolsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProtocolsTest.swift; sourceTree = "<group>"; };
@@ -86,7 +84,6 @@
 				AB2C2AAB1BC3E610006A28CB /* Codec.swift */,
 				AB2C2AAC1BC3E610006A28CB /* MultiAddr.swift */,
 				AB2C2AAD1BC3E610006A28CB /* Protocols.swift */,
-				AB2C2A8E1BC3E56A006A28CB /* SwiftMultiaddr.h */,
 				AB2C2A901BC3E56A006A28CB /* Info.plist */,
 				AB472A3E1BC7CF9F005CCD17 /* IPUtil.swift */,
 			);
@@ -112,7 +109,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AB2C2A8F1BC3E56A006A28CB /* SwiftMultiaddr.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -313,7 +309,9 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = "macosx iphonesimulator iphoneos";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VALID_ARCHS = "i386 x86_64 armv7 armv7s arm64";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -355,6 +353,8 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = "macosx iphonesimulator iphoneos";
+				VALID_ARCHS = "i386 x86_64 armv7 armv7s arm64";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -401,6 +401,9 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
 				);
+				"FRAMEWORK_SEARCH_PATHS[sdk=iphoneos*]" = "$(PROJECT_DIR)/Carthage/Build/iOS";
+				"FRAMEWORK_SEARCH_PATHS[sdk=iphonesimulator*]" = "$(PROJECT_DIR)/Carthage/Build/iOS";
+				"FRAMEWORK_SEARCH_PATHS[sdk=macosx*]" = "$(PROJECT_DIR)/Carthage/Build/Mac";
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = SwiftMultiaddr/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -439,8 +442,9 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/Mac",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
+				"FRAMEWORK_SEARCH_PATHS[sdk=macosx*]" = "$(PROJECT_DIR)/Carthage/Build/Mac";
 				INFOPLIST_FILE = SwiftMultiaddrTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Terminal-Glow.SwiftMultiaddrTests";

@@ -13,7 +13,7 @@ public struct Protocol {
     let code: Int
     let size: Int
     let name: String
-    let vCode: [uint8]
+    let vCode: [UInt8]
 }
 
 let
@@ -34,7 +34,7 @@ let lengthPrefixedVarSize = -1
 
 /** A case for using enums instead?
 enum Protocols {
-    case IP_4(Int,String,[uint8]) // nah, they're all the same...
+    case IP_4(Int,String,[UInt8]) // nah, they're all the same...
 }
 */
 let Protocols = [
