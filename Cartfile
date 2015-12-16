@@ -1,5 +1,4 @@
-github "NeoTeo/VarInt" "experiment"
-# arsegithub "NeoTeo/SwiftHex"
-github "NeoTeo/SwiftMultihash" "experiment"
-github "norio-nomura/Base32" "v0.4.1"
+github "NeoTeo/VarInt" == v0.1.4 
+github "NeoTeo/SwiftMultihash" == v0.1.1
+github "norio-nomura/Base32" == v0.4.1
 
