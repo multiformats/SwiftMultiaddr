@@ -47,7 +47,7 @@ func firstHexString(fromString hexString: String) -> String? {
             validHexString = hexString.substringToIndex(hexString.startIndex.advancedBy(idx))
             return validHexString
         }
-        idx++
+        idx += 1
     }
     return validHexString
 }
@@ -128,7 +128,7 @@ func parseIPv6(ipString: String, zoneAllowed: Bool) throws -> (IP, String) {
         var separator: Character?
         if ipTmpString.characters.count > 0 {
             separator = ipTmpString.removeAtIndex(ipTmpString.startIndex)
-            charactersRead++
+            charactersRead += 1
         }
         
         /// We might be in a trailing IPv4
@@ -173,7 +173,7 @@ func parseIPv6(ipString: String, zoneAllowed: Bool) throws -> (IP, String) {
             ellipsis = outIndex
             
             ipTmpString.removeAtIndex(ipTmpString.startIndex)
-            charactersRead++
+            charactersRead += 1
             
             if ipTmpString.characters.count == 0 {
                 break
@@ -238,12 +238,15 @@ func expandEllipsis(ipBytes: IP, bytesWritten: Int, ellipsisIndex: Int) throws -
     let bytesLeft   = IPv6Len - bytesWritten
     
     /// move the values after the ellipsis to the end of the output string
-    for var k = bytesWritten - 1 ; k >= ellipsisIndex ; k-- {
+//    for var k = bytesWritten - 1 ; k >= ellipsisIndex ; k -= 1 {
+//        print("k1 \(k)")
+//    }
+    for k in (ellipsisIndex...bytesWritten - 1).reverse() {
         ip[k+bytesLeft] = ip[k]
     }
     
     /// Fill the bytes between the ellipsis and the ? with 0
-    for var k = ellipsisIndex + bytesLeft - 1 ; k >= ellipsisIndex ; k-- {
+    for k in (ellipsisIndex...(ellipsisIndex + bytesLeft - 1)).reverse() {
         ip[k] = 0
     }
     return ip
@@ -270,7 +273,7 @@ func hexStringToInt(str: String) -> (Int, Int)? {
             let validHexString = str.substringToIndex(str.startIndex.advancedBy(idx))
             return (Int(validHexString, radix: 16)!,idx)
         }
-        idx++
+        idx += 1
     }
     return nil
 }

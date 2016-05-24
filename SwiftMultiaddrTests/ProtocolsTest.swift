@@ -51,7 +51,9 @@ class ProtocolsTest: XCTestCase {
                 
                 var i = 0
                 for protoStr in protoStrings {
-                    let proto = ps2[i++]
+                    
+                    let proto = ps2[i]
+                    i += 1
                     
                     guard let proto2 = protocolWithName(protoStr) else {
                         let errorMsg = "Failed to create protocolWithName with" + protoStr
