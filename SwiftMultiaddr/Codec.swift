@@ -7,31 +7,31 @@
 //  Licensed under MIT See LICENCE file in the root of this project for details. 
 
 import Foundation
-import Base32
+//import Base32
 import SwiftMultihash
 
-enum CodecError : ErrorType {
-    case InvalidMultiAddress
-    case InvalidPortNumber
-    case UnknownProtocol
-    case NoAddress
-    case ParseAddressFail
-    case PortRangeFail
-    case PortValueTooSmall
-    case PortValueTooBig
-    case NoPortNumber
-    case NotTorOnion
-    case FailedBase32Decoding
-    case IPFSInconsistentLength
+enum CodecError : ErrorProtocol {
+    case invalidMultiAddress
+    case invalidPortNumber
+    case unknownProtocol
+    case noAddress
+    case parseAddressFail
+    case portRangeFail
+    case portValueTooSmall
+    case portValueTooBig
+    case noPortNumber
+    case notTorOnion
+    case failedBase32Decoding
+    case ipfsInconsistentLength
 }
 
-func stringToBytes(multiAddrStr: String) throws -> [UInt8] {
+func stringToBytes(_ multiAddrStr: String) throws -> [UInt8] {
     
-    let tmpString = trimRight(multiAddrStr, charSet: NSCharacterSet(charactersInString: "/"))
+    let tmpString = trimRight(multiAddrStr, charSet: CharacterSet(charactersIn: "/"))
     var protoComponents = tmpString.characters.split{$0 == "/"}.map(String.init)
     let fwSlash: Character = "/"
     
-    if tmpString.characters.first != fwSlash { throw CodecError.InvalidMultiAddress }
+    if tmpString.characters.first != fwSlash { throw CodecError.invalidMultiAddress }
 
     var bytes: [UInt8] = []
 //    for proto in protoComponents {
@@ -39,13 +39,13 @@ func stringToBytes(multiAddrStr: String) throws -> [UInt8] {
         
         let protoComponent = protoComponents.removeFirst()
         
-        guard let multiAddrProtocol = protocolWithName(protoComponent) else { throw CodecError.UnknownProtocol }
+        guard let multiAddrProtocol = protocolWithName(protoComponent) else { throw CodecError.unknownProtocol }
         
         bytes += codeToVarint(multiAddrProtocol.code)
         
         if multiAddrProtocol.size == 0 { continue }
         
-        if protoComponents.count < 1 { throw CodecError.NoAddress }
+        if protoComponents.count < 1 { throw CodecError.noAddress }
         
         let addrBytes = try addressStringToBytes(multiAddrProtocol, addrString: protoComponents.removeFirst())
         
@@ -55,7 +55,7 @@ func stringToBytes(multiAddrStr: String) throws -> [UInt8] {
     return bytes
 }
 
-func bytesToString(buffer: [UInt8]) throws -> String {
+func bytesToString(_ buffer: [UInt8]) throws -> String {
     
     var addressString = ""
     var addressBytes = buffer
@@ -65,7 +65,7 @@ func bytesToString(buffer: [UInt8]) throws -> String {
         let (code, num) = readVarIntCode(addressBytes)
         addressBytes = Array(addressBytes[num..<addressBytes.count])
         
-        guard let proto = protocolWithCode(code) else { throw CodecError.UnknownProtocol }
+        guard let proto = protocolWithCode(code) else { throw CodecError.unknownProtocol }
         
         addressString += "/" + proto.name
         
@@ -81,7 +81,7 @@ func bytesToString(buffer: [UInt8]) throws -> String {
     return addressString
 }
 
-func sizeForAddress(proto: Protocol, buffer: [UInt8]) -> Int {
+func sizeForAddress(_ proto: Protocol, buffer: [UInt8]) -> Int {
     
     switch proto.size {
     case let s where s > 0:
@@ -94,7 +94,7 @@ func sizeForAddress(proto: Protocol, buffer: [UInt8]) -> Int {
     }
 }
 
-func addressStringToBytes(proto: Protocol, addrString: String) throws -> [UInt8]? {
+func addressStringToBytes(_ proto: Protocol, addrString: String) throws -> [UInt8]? {
     switch proto.code {
     case P_IP4:
         return try ipToIPv4(parseIP(addrString))
@@ -104,29 +104,31 @@ func addressStringToBytes(proto: Protocol, addrString: String) throws -> [UInt8]
         
     case P_TCP, P_UDP, P_DCCP, P_SCTP:
         
-        guard let portVal = Int(addrString) else { throw CodecError.ParseAddressFail }
+        guard let portVal = Int(addrString) else { throw CodecError.parseAddressFail }
         
-        if portVal > 65535 { throw CodecError.PortRangeFail }
+        if portVal > 65535 { throw CodecError.portRangeFail }
         
         // Return the value as big-endian bytes.
         return [UInt8(portVal >> 8),UInt8(portVal & 0xff)]
         
     case P_ONION:
         var components = addrString.characters.split{$0 == ":"}.map(String.init)
-        if components.count != 2 { throw CodecError.NoPortNumber }
+        if components.count != 2 { throw CodecError.noPortNumber }
         
         /// A valid tor onion address is 16 characters.
-        if components[0].characters.count != 16 { throw CodecError.NotTorOnion }
+        if components[0].characters.count != 16 { throw CodecError.notTorOnion }
         
-        let onionHostBytes = components[0].uppercaseString
-        guard let onionData = onionHostBytes.base32DecodedData else { throw CodecError.FailedBase32Decoding }
-        var onionBytes = Array<UInt8>(count: onionData.length, repeatedValue: 0)
-        onionData.getBytes(&onionBytes, length: onionData.length)
-        
+        let onionHostBytes = components[0].uppercased()
+//        guard let onionData = onionHostBytes.base32DecodedData else { throw CodecError.failedBase32Decoding }
+		guard let onionData = Base32Decode(onionHostBytes) else { throw CodecError.failedBase32Decoding }
+        var onionBytes = Array<UInt8>(repeating: 0, count: onionData.count)
+//        onionData.getBytes(&onionBytes, length: onionData.length)
+		onionData.copyBytes(to: &onionBytes, count: onionData.count)
+		
         /// Onion port number
-        guard let portVal = Int(components[1]) else { throw CodecError.InvalidPortNumber }
-        if portVal >= 65536 { throw CodecError.PortValueTooBig }
-        if portVal < 1 { throw CodecError.PortValueTooSmall }
+        guard let portVal = Int(components[1]) else { throw CodecError.invalidPortNumber }
+        if portVal >= 65536 { throw CodecError.portValueTooBig }
+        if portVal < 1 { throw CodecError.portValueTooSmall }
 
         // Return the value as big-endian bytes.
         let portBytes = [UInt8(portVal >> 8),UInt8(portVal & 0xff)]
@@ -143,11 +145,11 @@ func addressStringToBytes(proto: Protocol, addrString: String) throws -> [UInt8]
         
         return ipfsBytes
     default:
-        throw CodecError.ParseAddressFail
+        throw CodecError.parseAddressFail
     }
 }
 
-func addressBytesToString(proto: Protocol, buffer: [UInt8]) throws -> String {
+func addressBytesToString(_ proto: Protocol, buffer: [UInt8]) throws -> String {
     switch proto.code {
     case P_IP4, P_IP6:
         
@@ -155,7 +157,7 @@ func addressBytesToString(proto: Protocol, buffer: [UInt8]) throws -> String {
         
     case P_TCP, P_UDP, P_DCCP, P_SCTP:
         
-        if buffer.count != 2 { throw CodecError.ParseAddressFail }
+        if buffer.count != 2 { throw CodecError.parseAddressFail }
         return String(UInt16(buffer[0]) << 8 | UInt16(buffer[1]))
         
     case P_IPFS:
@@ -164,7 +166,7 @@ func addressBytesToString(proto: Protocol, buffer: [UInt8]) throws -> String {
         let (size, bytesRead) = readVarIntCode(buffer)
         tmpBuffer = Array<UInt8>(buffer[bytesRead..<buffer.count])
 
-        if tmpBuffer.count != size { throw CodecError.IPFSInconsistentLength }
+        if tmpBuffer.count != size { throw CodecError.ipfsInconsistentLength }
         
         let multihash = try SwiftMultihash.cast(tmpBuffer)
         return SwiftMultihash.b58String(multihash)
@@ -176,27 +178,27 @@ func addressBytesToString(proto: Protocol, buffer: [UInt8]) throws -> String {
 
 /// Helper functions not available (afaik) in the Swift/Cocoa libraries.
 
-func trimRight(theString: String, charSet: NSCharacterSet) -> String {
+func trimRight(_ theString: String, charSet: CharacterSet) -> String {
     
     var newString = theString
     
-    while String(newString.characters.last).rangeOfCharacterFromSet(charSet) != nil {
+    while String(newString.characters.last).rangeOfCharacter(from: charSet) != nil {
         newString = String(newString.characters.dropLast())
     }
     
     return newString
 }
 
-enum IPParseError : ErrorType {
-    case WrongSize
-    case BadOctet(Int)
+enum IPParseError : ErrorProtocol {
+    case wrongSize
+    case badOctet(Int)
 }
 
-protocol UIntLessThan32 : UnsignedIntegerType {}
+protocol UIntLessThan32 : UnsignedInteger {}
 extension UInt8 : UIntLessThan32 {}
 extension UInt16: UIntLessThan32 {}
 
-func makeIPStringFromBytes< T: UIntLessThan32>(ipBytes: [T]) throws -> String {
+func makeIPStringFromBytes< T: UIntLessThan32>(_ ipBytes: [T]) throws -> String {
     
     var maxOctets = 4
     var maxVal: T = 255
@@ -206,14 +208,14 @@ func makeIPStringFromBytes< T: UIntLessThan32>(ipBytes: [T]) throws -> String {
         maxOctets = 8
     }
     
-    guard ipBytes.count == maxOctets else { throw IPParseError.WrongSize }
+    guard ipBytes.count == maxOctets else { throw IPParseError.wrongSize }
     var ipString = ""
     
     
     for index in 0..<ipBytes.count {
         let octet = ipBytes[index]
         if octet < 0 || octet > maxVal {
-            throw IPParseError.BadOctet(index+1)
+            throw IPParseError.badOctet(index+1)
         }
         
         ipString += String(octet)

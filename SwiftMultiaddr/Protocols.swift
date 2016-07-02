@@ -53,27 +53,27 @@ let Protocols = [
     Protocol(code: P_IPFS,  size: lengthPrefixedVarSize, name: "ipfs", vCode: codeToVarint(P_IPFS))
 ]
 
-enum ProtocolErrors : ErrorType {
-    case NotFound
+enum ProtocolErrors : ErrorProtocol {
+    case notFound
 }
 
-func protocolWithName(name: String) -> Protocol? {
+func protocolWithName(_ name: String) -> Protocol? {
     for pcol in Protocols {
         if pcol.name == name { return pcol }
     }
     return nil
 }
 
-func protocolWithCode(code: Int) -> Protocol? {
+func protocolWithCode(_ code: Int) -> Protocol? {
     for pcol in Protocols {
         if pcol.code == code { return pcol }
     }
     return nil
 }
 
-func protocolsWithString(string: String) throws -> [Protocol]? {
+func protocolsWithString(_ string: String) throws -> [Protocol]? {
     
-    let trimmedString = string.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "/"))
+    let trimmedString = string.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
     let splitString = trimmedString.characters.split{$0 == "/"}.map(String.init)
     
     if splitString.count != 0 {
@@ -81,7 +81,7 @@ func protocolsWithString(string: String) throws -> [Protocol]? {
         var foundProtocols: [Protocol] = []
         for protoName in splitString {
             
-            guard let p = protocolWithName(protoName) else { throw ProtocolErrors.NotFound }
+            guard let p = protocolWithName(protoName) else { throw ProtocolErrors.notFound }
             
             foundProtocols.append(p)
         }
@@ -91,18 +91,18 @@ func protocolsWithString(string: String) throws -> [Protocol]? {
     return nil
 }
 
-func codeToVarint(num: Int) -> [UInt8] {
+func codeToVarint(_ num: Int) -> [UInt8] {
     let buf = putUVarInt(UInt64(num))
     let bufsiz = buf.count
 
     return Array(buf[0..<bufsiz])
 }
 
-func varIntToCode(buffer: [UInt8]) -> (Int, Int) {
+func varIntToCode(_ buffer: [UInt8]) -> (Int, Int) {
     return readVarIntCode(buffer)
 }
 
-func readVarIntCode(buffer: [UInt8]) -> (Int, Int) {
+func readVarIntCode(_ buffer: [UInt8]) -> (Int, Int) {
     let (value, bytesRead) = uVarInt(buffer)
     if bytesRead < 0 { fatalError("varints larger than uint64 not currently supported") }
     return (Int(value), bytesRead)

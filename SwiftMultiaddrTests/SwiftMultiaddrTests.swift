@@ -74,7 +74,7 @@ class SwiftMultiaddrTests: XCTestCase {
         /// First we test for cases that need to fail the construction to pass the test
         for testCase in failCases {
             do {
-                try newMultiaddr(testCase)
+                try _ = newMultiaddr(testCase)
                 XCTFail("The constructor should have failed.")
             } catch {}
         }

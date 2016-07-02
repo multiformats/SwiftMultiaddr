@@ -15,7 +15,7 @@ class CodecTests: XCTestCase {
     func testStringToBytes() {
         
         let testString = { (address: String, hex: String) in
-            let decodedHex = try SwiftHex.decodeString(hex)
+            let decodedHex = try SwiftHex.decodeString(hexString: hex)
             let encodedAddress = try stringToBytes(address)
             
             XCTAssert(decodedHex == encodedAddress)
@@ -35,7 +35,7 @@ class CodecTests: XCTestCase {
     func testBytesToString() {
         
         let testString = { (address: String, hex: String) in
-            let decodedHex = try SwiftHex.decodeString(hex)
+            let decodedHex = try SwiftHex.decodeString(hexString: hex)
             let encodedAddress = try bytesToString(decodedHex)
             
             XCTAssert(address == encodedAddress)

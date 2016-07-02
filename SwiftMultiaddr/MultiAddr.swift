@@ -12,12 +12,12 @@ public struct Multiaddr {
     private let _bytes: [UInt8]
 }
 
-public func newMultiaddr(addrString: String) throws -> Multiaddr {
+public func newMultiaddr(_ addrString: String) throws -> Multiaddr {
     let multiaddressBytes = try stringToBytes(addrString)
     return Multiaddr(_bytes: multiaddressBytes)
 }
 
-public func newMultiaddrBytes(address: [UInt8]) throws -> Multiaddr {
+public func newMultiaddrBytes(_ address: [UInt8]) throws -> Multiaddr {
     let addressString = try bytesToString(address)
     return try newMultiaddr(addressString)
 }
@@ -54,19 +54,19 @@ extension Multiaddr {
         return ps
     }
     
-    public func encapsulate(addr: Multiaddr) -> Multiaddr {
+    public func encapsulate(_ addr: Multiaddr) -> Multiaddr {
 
         return Multiaddr(_bytes: _bytes + addr._bytes)
     }
     
-    public func decapsulate(addr: Multiaddr) throws -> Multiaddr {
+    public func decapsulate(_ addr: Multiaddr) throws -> Multiaddr {
         
         let oldString = try string()
         let newString = try addr.string()
-        guard let range = oldString.rangeOfString(newString, options: .BackwardsSearch) else {
+        guard let range = oldString.range(of: newString, options: .backwardsSearch) else {
             return Multiaddr(_bytes: _bytes)
         }
-        let ma = try newMultiaddr(oldString.substringToIndex(range.startIndex))
+        let ma = try newMultiaddr(oldString.substring(to: range.lowerBound))
         return ma
     }
 }

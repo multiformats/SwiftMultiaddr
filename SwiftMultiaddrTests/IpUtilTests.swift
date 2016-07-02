@@ -54,9 +54,9 @@ class IpUtilTests: XCTestCase {
         let ipBytes: IP = [32,1,72,96,0,0,32,1,0,104,0,0,0,0,0,0]
         let ellipsis = 8
 
-        self.measureBlock {
+        self.measure {
             // Put the code you want to measure the time of here.
-            try! expandEllipsis(ipBytes, bytesWritten: 10, ellipsisIndex: ellipsis)
+            try! _ = expandEllipsis(ipBytes, bytesWritten: 10, ellipsisIndex: ellipsis)
         }
     }
 

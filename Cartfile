@@ -1,4 +1,3 @@
-github "NeoTeo/VarInt" == 0.1.5 
-github "NeoTeo/SwiftMultihash" == 1.1.1
-github "norio-nomura/Base32" == 0.4.1
+github "NeoTeo/VarInt" "swift3"
+github "NeoTeo/SwiftMultihash" "swift3"
 

@@ -10,6 +10,7 @@
 		AB2C2AAF1BC3E610006A28CB /* Codec.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2C2AAB1BC3E610006A28CB /* Codec.swift */; };
 		AB2C2AB01BC3E610006A28CB /* MultiAddr.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2C2AAC1BC3E610006A28CB /* MultiAddr.swift */; };
 		AB2C2AB11BC3E610006A28CB /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2C2AAD1BC3E610006A28CB /* Protocols.swift */; };
+		AB3C7FFF1D281BD300B36FCE /* Base32.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3C7FFE1D281BD300B36FCE /* Base32.swift */; };
 		AB472A3F1BC7CF9F005CCD17 /* IPUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB472A3E1BC7CF9F005CCD17 /* IPUtil.swift */; };
 		ABC1FE401BD04B4500546D3E /* CodecTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC1FE3F1BD04B4500546D3E /* CodecTests.swift */; };
 		ABC1FE571BD10A4C00546D3E /* IpUtilTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC1FE541BD10A4C00546D3E /* IpUtilTests.swift */; };
@@ -35,6 +36,7 @@
 		AB2C2AAB1BC3E610006A28CB /* Codec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Codec.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		AB2C2AAC1BC3E610006A28CB /* MultiAddr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = MultiAddr.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		AB2C2AAD1BC3E610006A28CB /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Protocols.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		AB3C7FFE1D281BD300B36FCE /* Base32.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Base32.swift; sourceTree = "<group>"; };
 		AB472A3E1BC7CF9F005CCD17 /* IPUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = IPUtil.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		ABC1FE3F1BD04B4500546D3E /* CodecTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodecTests.swift; sourceTree = "<group>"; };
 		ABC1FE541BD10A4C00546D3E /* IpUtilTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IpUtilTests.swift; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 				AB2C2AAD1BC3E610006A28CB /* Protocols.swift */,
 				AB2C2A901BC3E56A006A28CB /* Info.plist */,
 				AB472A3E1BC7CF9F005CCD17 /* IPUtil.swift */,
+				AB3C7FFE1D281BD300B36FCE /* Base32.swift */,
 			);
 			path = SwiftMultiaddr;
 			sourceTree = "<group>";
@@ -158,14 +161,16 @@
 		AB2C2A821BC3E56A006A28CB /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0710;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Teo Sartori";
 				TargetAttributes = {
 					AB2C2A8A1BC3E56A006A28CB = {
 						CreatedOnToolsVersion = 7.1;
+						LastSwiftMigration = 0800;
 					};
 					AB2C2A941BC3E56A006A28CB = {
 						CreatedOnToolsVersion = 7.1;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -216,7 +221,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# env # Uncomment this to see all the environment variables.\n\nFRAMEWORK_TARGET_PATH=$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH\nCARTHAGE_BUILD_PATH=$SRCROOT/Carthage/Build\n\n# Make sure the Frameworks dir exists.\nmkdir -p $FRAMEWORK_TARGET_PATH\n\nif [ \"$PLATFORM_NAME\" == \"macosx\" ]; then\nCARTHAGE_SOURCE_PATH=\"$CARTHAGE_BUILD_PATH/Mac\"\nelse\nif [ \"$PLATFORM_NAME\" == \"iphoneos\" ] || [ \"$PLATFORM_NAME\" == \"iphonesimulator\" ]; then\nCARTHAGE_SOURCE_PATH=\"$CARTHAGE_BUILD_PATH/iOS\"\nelse\necho \"Unknown platform name $PLATFORM_NAME\"\nexit 1\nfi\nfi\necho \"The source path\"$CARTHAGE_SOURCE_PATH\necho \"The target path\"$FRAMEWORK_TARGET_PATH\n\ncp -r $CARTHAGE_SOURCE_PATH/SwiftGMP.framework $FRAMEWORK_TARGET_PATH/SwiftGMP.framework\ncp -r $CARTHAGE_SOURCE_PATH/SwiftHex.framework $FRAMEWORK_TARGET_PATH/SwiftHex.framework\ncp -r $CARTHAGE_SOURCE_PATH/SwiftBase58.framework $FRAMEWORK_TARGET_PATH/SwiftBase58.framework\ncp -r $CARTHAGE_SOURCE_PATH/SwiftMultihash.framework $FRAMEWORK_TARGET_PATH/SwiftMultihash.framework\ncp -r $CARTHAGE_SOURCE_PATH/VarInt.framework $FRAMEWORK_TARGET_PATH/VarInt.framework\ncp -r $CARTHAGE_SOURCE_PATH/Base32.framework $FRAMEWORK_TARGET_PATH/Base32.framework";
+			shellScript = "# env # Uncomment this to see all the environment variables.\n\nFRAMEWORK_TARGET_PATH=$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH\nCARTHAGE_BUILD_PATH=$SRCROOT/Carthage/Build\n\n# Make sure the Frameworks dir exists.\nmkdir -p $FRAMEWORK_TARGET_PATH\n\nif [ \"$PLATFORM_NAME\" == \"macosx\" ]; then\nCARTHAGE_SOURCE_PATH=\"$CARTHAGE_BUILD_PATH/Mac\"\nelse\nif [ \"$PLATFORM_NAME\" == \"iphoneos\" ] || [ \"$PLATFORM_NAME\" == \"iphonesimulator\" ]; then\nCARTHAGE_SOURCE_PATH=\"$CARTHAGE_BUILD_PATH/iOS\"\nelse\necho \"Unknown platform name $PLATFORM_NAME\"\nexit 1\nfi\nfi\necho \"The source path\"$CARTHAGE_SOURCE_PATH\necho \"The target path\"$FRAMEWORK_TARGET_PATH\n\ncp -r $CARTHAGE_SOURCE_PATH/SwiftGMP.framework $FRAMEWORK_TARGET_PATH/SwiftGMP.framework\ncp -r $CARTHAGE_SOURCE_PATH/SwiftHex.framework $FRAMEWORK_TARGET_PATH/SwiftHex.framework\ncp -r $CARTHAGE_SOURCE_PATH/SwiftBase58.framework $FRAMEWORK_TARGET_PATH/SwiftBase58.framework\ncp -r $CARTHAGE_SOURCE_PATH/SwiftMultihash.framework $FRAMEWORK_TARGET_PATH/SwiftMultihash.framework\ncp -r $CARTHAGE_SOURCE_PATH/VarInt.framework $FRAMEWORK_TARGET_PATH/VarInt.framework";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -228,6 +233,7 @@
 				AB2C2AB11BC3E610006A28CB /* Protocols.swift in Sources */,
 				AB2C2AB01BC3E610006A28CB /* MultiAddr.swift in Sources */,
 				AB472A3F1BC7CF9F005CCD17 /* IPUtil.swift in Sources */,
+				AB3C7FFF1D281BD300B36FCE /* Base32.swift in Sources */,
 				AB2C2AAF1BC3E610006A28CB /* Codec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -386,6 +392,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -415,6 +422,8 @@
 				PRODUCT_NAME = SwiftMultiaddr;
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -433,6 +442,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "Terminal-Glow.SwiftMultiaddrTests";
 				PRODUCT_NAME = SwiftMultiaddrTests;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -451,6 +461,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Terminal-Glow.SwiftMultiaddrTests";
 				PRODUCT_NAME = SwiftMultiaddrTests;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
