@@ -53,7 +53,7 @@ let Protocols = [
     Protocol(code: P_IPFS,  size: lengthPrefixedVarSize, name: "ipfs", vCode: codeToVarint(P_IPFS))
 ]
 
-enum ProtocolErrors : ErrorProtocol {
+enum ProtocolErrors : Error {
     case notFound
 }
 

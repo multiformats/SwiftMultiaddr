@@ -13,7 +13,7 @@ typealias IP = [UInt8]
 let IPv4Len = 4
 let IPv6Len = 16
 
-enum IPError : ErrorProtocol {
+enum IPError : Error {
     case invalidIPString
     case tooManyOctets
     case badOctet(Int)
@@ -79,7 +79,7 @@ func parseIPv4(_ ipString: String) throws -> IP {
         let octet = components[index]
         
         /// Check octets for range.
-        guard let byte = UInt8(String(octet)) where byte >= 0 && byte <= 255 else {
+        guard let byte = UInt8(String(octet)), byte >= 0 && byte <= 255 else {
             throw IPError.badOctet(index+1)
         }
         ipBytes.append(byte)
@@ -119,7 +119,7 @@ func parseIPv6(_ ipString: String, zoneAllowed: Bool) throws -> (IP, String) {
             throw IPError.invalidIPString
         }
         charactersRead += firstHex.characters.count
-        guard let hexVal = Int(firstHex, radix: 16) where hexVal <= 0xffff else {
+        guard let hexVal = Int(firstHex, radix: 16), hexVal <= 0xffff else {
             throw IPError.invalidIPString
         }
         

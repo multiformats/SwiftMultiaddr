@@ -10,7 +10,7 @@ import Foundation
 //import Base32
 import SwiftMultihash
 
-enum CodecError : ErrorProtocol {
+enum CodecError : Error {
     case invalidMultiAddress
     case invalidPortNumber
     case unknownProtocol
@@ -189,7 +189,7 @@ func trimRight(_ theString: String, charSet: CharacterSet) -> String {
     return newString
 }
 
-enum IPParseError : ErrorProtocol {
+enum IPParseError : Error {
     case wrongSize
     case badOctet(Int)
 }

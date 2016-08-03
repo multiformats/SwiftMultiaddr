@@ -151,7 +151,7 @@ func Base32Decode(_ data: String, alphabet: Array<Int>, characters: Array<String
 		let totalNumberOfBytes = fullGroups * 5 + bytesInPartialGroup
 		
 		// allocate a buffer big enough for our decode
-		let buffer = UnsafeMutablePointer<UInt8>(allocatingCapacity: totalNumberOfBytes)
+        let buffer = UnsafeMutablePointer<UInt8>.allocate(capacity: totalNumberOfBytes)
 		let base32Bytes = UnsafePointer<UInt8>((base32Data as NSData).bytes)
 		
 		var decodedByteIndex = 0;
