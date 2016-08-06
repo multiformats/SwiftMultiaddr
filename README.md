@@ -5,10 +5,26 @@ Swift Multiaddr
 
 > A [Multiaddr](https://github.com/jbenet/multiaddr) implementation in Swift.
 
-## Installation
-#### Carthage
+## Table of Contents
+
+- [Install](#install)
+  - [Carthage](#carthage)
+  - [Requirements](#requirements)
+- [Usage](#usage)
+- [Example](#example)
+  - [Simple](#simple)
+  - [Protocols](#protocols)
+  - [En/decapsulate](#endecapsulate)
+  - [Tunneling](#tunneling)
+- [Contribute](#contribute)
+- [License](#license)
+
+## Install
+
+### Carthage
+
 Add the following to your Cartfile
-	`github "NeoTeo/Swiftmultiaddr"`
+	`github "multiformats/Swiftmultiaddr"`
 And in the root of your project type:
 	`carthage update .`
 
@@ -16,7 +32,12 @@ As of v0.4.1 of the Base32 framework, if you are running Swift 2.1, it is necess
 
 For more information on how to install via Carthage see the [README](https://github.com/Carthage/Carthage#adding-frameworks-to-an-application)
 
+### Requirements
+
+- Swift 2
+
 ## Usage
+
 Add the SwiftMultiaddr.framework to your Xcode project:
 - Select your target's `Build Phases` tab.
 
@@ -73,8 +94,13 @@ let printerOverProxy = proxy.encapsulate(printer)
 let proxyAgain = printerOverProxy.decapsulate(printer) 
 /// /ip4/10.20.30.40/tcp/443
 ```
-## Requirements
- Swift 2
+
+## Contribute
+
+Contributions are welcome! Check out [the issues](//github.com/multiformats/SwiftMultiaddr/issues).
+
+If editing this README, note that this README should be [standard-readme](//github.com/RichardLitt/standard-readme) compatible.
 
 ## License
-MIT
+
+[MIT](LICENSE) © [Matteo Sartori](//github.com/NeoTeo)
