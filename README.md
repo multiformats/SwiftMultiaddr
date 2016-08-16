@@ -2,6 +2,8 @@ Swift Multiaddr
 ===============
 
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![](https://img.shields.io/badge/project-multiformats-blue.svg?style=flat-square)](http://github.com/multiformats/multiformats)
+[![](https://img.shields.io/badge/freenode-%23ipfs-blue.svg?style=flat-square)](http://webchat.freenode.net/?channels=%23ipfs)
 
 > A [Multiaddr](https://github.com/jbenet/multiaddr) implementation in Swift.
 
@@ -16,6 +18,7 @@ Swift Multiaddr
   - [Protocols](#protocols)
   - [En/decapsulate](#endecapsulate)
   - [Tunneling](#tunneling)
+- [Maintainers](#maintainers)
 - [Contribute](#contribute)
 - [License](#license)
 
@@ -95,9 +98,15 @@ let proxyAgain = printerOverProxy.decapsulate(printer)
 /// /ip4/10.20.30.40/tcp/443
 ```
 
+## Maintainers
+
+Captain: [@NeoTeo](https://github.com/NeoTeo).
+
 ## Contribute
 
 Contributions are welcome! Check out [the issues](//github.com/multiformats/SwiftMultiaddr/issues).
+
+Check out our [contributing document](https://github.com/multiformats/multiformats/blob/master/contributing.md) for more information on how we work, and about contributing in general. Please be aware that all interactions related to multiformats are subject to the IPFS [Code of Conduct](https://github.com/ipfs/community/blob/master/code-of-conduct.md).
 
 If editing this README, note that this README should be [standard-readme](//github.com/RichardLitt/standard-readme) compatible.
 
