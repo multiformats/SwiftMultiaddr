@@ -43,7 +43,7 @@ func firstHexString(fromString hexString: String) -> String? {
     var idx = 0
     var validHexString = hexString
     for char in hexString.utf16 {
-        if validHex.contains(UnicodeScalar(char)) == false {
+        if validHex.contains(UnicodeScalar(char)!) == false {
             validHexString = hexString.substring(to: hexString.characters.index(hexString.startIndex, offsetBy: idx))
             return validHexString
         }
@@ -269,7 +269,7 @@ func hexStringToInt(_ str: String) -> (Int, Int)? {
     /// First find the first non alphanumeric index.
     var idx = 0
     for char in str.utf16 {
-        if validHex.contains(UnicodeScalar(char)) == false {
+        if validHex.contains(UnicodeScalar(char)!) == false {
             let validHexString = str.substring(to: str.characters.index(str.startIndex, offsetBy: idx))
             return (Int(validHexString, radix: 16)!,idx)
         }

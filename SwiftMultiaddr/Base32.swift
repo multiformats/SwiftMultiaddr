@@ -49,72 +49,73 @@ func Base32Encode(_ data: Data, alphabet: Array<String>) -> String {
 	
 	var result = String()
 	
-	let bytes = UnsafePointer<UInt8>((data as NSData).bytes)
-	for byteIndex in stride(from: 0, to: data.count, by: 5) {
-		let maxOffset = (byteIndex + 5 >= data.count) ? data.count : byteIndex + 5
-		let numberOfBytes = maxOffset - byteIndex
-		
-		var byte0: UInt8 = 0
-		var byte1: UInt8 = 0
-		var byte2: UInt8 = 0
-		var byte3: UInt8 = 0
-		var byte4: UInt8 = 0
-		
-		switch numberOfBytes {
-		case 5:
-			byte4 = UInt8(bytes[byteIndex + 4])
-			fallthrough
-		case 4:
-			byte3 = UInt8(bytes[byteIndex + 3])
-			fallthrough
-		case 3:
-			byte2 = UInt8(bytes[byteIndex + 2])
-			fallthrough
-		case 2:
-			byte1 = UInt8(bytes[byteIndex + 1])
-			fallthrough
-		case 1:
-			byte0 = UInt8(bytes[byteIndex + 0])
-			fallthrough
-		default:
-			break
-		}
-		
-		var encodedByte0 = "="
-		var encodedByte1 = "="
-		var encodedByte2 = "="
-		var encodedByte3 = "="
-		var encodedByte4 = "="
-		var encodedByte5 = "="
-		var encodedByte6 = "="
-		var encodedByte7 = "="
-		
-		switch numberOfBytes {
-		case 5:
-			encodedByte7 = alphabet[Int( byte4 & 0x1F )]
-			fallthrough;
-		case 4:
-			encodedByte6 = alphabet[Int( ((byte3 << 3) & 0x18) | ((byte4 >> 5) & 0x07) )]
-			encodedByte5 = alphabet[Int( ((byte3 >> 2) & 0x1F) )]
-			fallthrough
-		case 3:
-			encodedByte4 = alphabet[Int( ((byte2 << 1) & 0x1E) | ((byte3 >> 7) & 0x01) )]
-			fallthrough
-		case 2:
-			encodedByte2 = alphabet[Int( ((byte1 >> 1) & 0x1F) )]
-			encodedByte3 = alphabet[Int( ((byte1 << 4) & 0x10) | ((byte2 >> 4) & 0x0F) )]
-			fallthrough
-		case 1:
-			encodedByte0 = alphabet[Int( ((byte0 >> 3) & 0x1F) )]
-			encodedByte1 = alphabet[Int( ((byte0 << 2) & 0x1C) | ((byte1 >> 6) & 0x03)  )]
-			fallthrough
-		default:
-			break
-		}
-		
-		result += encodedByte0 + encodedByte1 + encodedByte2 + encodedByte3 + encodedByte4 + encodedByte5 + encodedByte6 + encodedByte7
-	}
-	
+    data.withUnsafeBytes { (bytes: UnsafePointer<UInt8>)->Void in
+        
+        for byteIndex in stride(from: 0, to: data.count, by: 5) {
+            let maxOffset = (byteIndex + 5 >= data.count) ? data.count : byteIndex + 5
+            let numberOfBytes = maxOffset - byteIndex
+            
+            var byte0: UInt8 = 0
+            var byte1: UInt8 = 0
+            var byte2: UInt8 = 0
+            var byte3: UInt8 = 0
+            var byte4: UInt8 = 0
+            
+            switch numberOfBytes {
+            case 5:
+                byte4 = UInt8(bytes[byteIndex + 4])
+                fallthrough
+            case 4:
+                byte3 = UInt8(bytes[byteIndex + 3])
+                fallthrough
+            case 3:
+                byte2 = UInt8(bytes[byteIndex + 2])
+                fallthrough
+            case 2:
+                byte1 = UInt8(bytes[byteIndex + 1])
+                fallthrough
+            case 1:
+                byte0 = UInt8(bytes[byteIndex + 0])
+                fallthrough
+            default:
+                break
+            }
+            
+            var encodedByte0 = "="
+            var encodedByte1 = "="
+            var encodedByte2 = "="
+            var encodedByte3 = "="
+            var encodedByte4 = "="
+            var encodedByte5 = "="
+            var encodedByte6 = "="
+            var encodedByte7 = "="
+            
+            switch numberOfBytes {
+            case 5:
+                encodedByte7 = alphabet[Int( byte4 & 0x1F )]
+                fallthrough;
+            case 4:
+                encodedByte6 = alphabet[Int( ((byte3 << 3) & 0x18) | ((byte4 >> 5) & 0x07) )]
+                encodedByte5 = alphabet[Int( ((byte3 >> 2) & 0x1F) )]
+                fallthrough
+            case 3:
+                encodedByte4 = alphabet[Int( ((byte2 << 1) & 0x1E) | ((byte3 >> 7) & 0x01) )]
+                fallthrough
+            case 2:
+                encodedByte2 = alphabet[Int( ((byte1 >> 1) & 0x1F) )]
+                encodedByte3 = alphabet[Int( ((byte1 << 4) & 0x10) | ((byte2 >> 4) & 0x0F) )]
+                fallthrough
+            case 1:
+                encodedByte0 = alphabet[Int( ((byte0 >> 3) & 0x1F) )]
+                encodedByte1 = alphabet[Int( ((byte0 << 2) & 0x1C) | ((byte1 >> 6) & 0x03)  )]
+                fallthrough
+            default:
+                break
+            }
+            
+            result += encodedByte0 + encodedByte1 + encodedByte2 + encodedByte3 + encodedByte4 + encodedByte5 + encodedByte6 + encodedByte7
+        }
+    }
 	return result
 }
 
@@ -152,60 +153,61 @@ func Base32Decode(_ data: String, alphabet: Array<Int>, characters: Array<String
 		
 		// allocate a buffer big enough for our decode
         let buffer = UnsafeMutablePointer<UInt8>.allocate(capacity: totalNumberOfBytes)
-		let base32Bytes = UnsafePointer<UInt8>((base32Data as NSData).bytes)
-		
-		var decodedByteIndex = 0;
-		for byteIndex in stride(from: 0, to: base32Data.count, by: 8) {
-			let maxOffset = (byteIndex + 8 >= base32Data.count) ? base32Data.count : byteIndex + 8
-			let numberOfBytes = maxOffset - byteIndex
-			
-			var encodedByte0: UInt8 = 0
-			var encodedByte1: UInt8 = 0
-			var encodedByte2: UInt8 = 0
-			var encodedByte3: UInt8 = 0
-			var encodedByte4: UInt8 = 0
-			var encodedByte5: UInt8 = 0
-			var encodedByte6: UInt8 = 0
-			var encodedByte7: UInt8 = 0
-			
-			switch numberOfBytes {
-			case 8:
-				encodedByte7 = UInt8(alphabet[Int( base32Bytes[byteIndex + 7] )])
-				fallthrough
-			case 7:
-				encodedByte6 = UInt8(alphabet[Int( base32Bytes[byteIndex + 6] )])
-				fallthrough
-			case 6:
-				encodedByte5 = UInt8(alphabet[Int( base32Bytes[byteIndex + 5] )])
-				fallthrough
-			case 5:
-				encodedByte4 = UInt8(alphabet[Int( base32Bytes[byteIndex + 4] )])
-				fallthrough
-			case 4:
-				encodedByte3 = UInt8(alphabet[Int( base32Bytes[byteIndex + 3] )])
-				fallthrough
-			case 3:
-				encodedByte2 = UInt8(alphabet[Int( base32Bytes[byteIndex + 2] )])
-				fallthrough
-			case 2:
-				encodedByte1 = UInt8(alphabet[Int( base32Bytes[byteIndex + 1] )])
-				fallthrough
-			case 1:
-				encodedByte0 = UInt8(alphabet[Int( base32Bytes[byteIndex + 0] )])
-				fallthrough
-			default:
-				break;
-			}
-			
-			buffer[decodedByteIndex + 0] = ((encodedByte0 << 3) & 0xF8) | ((encodedByte1 >> 2) & 0x07)
-			buffer[decodedByteIndex + 1] = ((encodedByte1 << 6) & 0xC0) | ((encodedByte2 << 1) & 0x3E) | ((encodedByte3 >> 4) & 0x01)
-			buffer[decodedByteIndex + 2] = ((encodedByte3 << 4) & 0xF0) | ((encodedByte4 >> 1) & 0x0F)
-			buffer[decodedByteIndex + 3] = ((encodedByte4 << 7) & 0x80) | ((encodedByte5 << 2) & 0x7C) | ((encodedByte6 >> 3) & 0x03)
-			buffer[decodedByteIndex + 4] = ((encodedByte6 << 5) & 0xE0) | (encodedByte7 & 0x1F)
-			
-			decodedByteIndex += 5
-		}
-		
+
+        base32Data.withUnsafeBytes { (base32Bytes: UnsafePointer<UInt8>)->Void in
+            
+            var decodedByteIndex = 0;
+            for byteIndex in stride(from: 0, to: base32Data.count, by: 8) {
+                let maxOffset = (byteIndex + 8 >= base32Data.count) ? base32Data.count : byteIndex + 8
+                let numberOfBytes = maxOffset - byteIndex
+                
+                var encodedByte0: UInt8 = 0
+                var encodedByte1: UInt8 = 0
+                var encodedByte2: UInt8 = 0
+                var encodedByte3: UInt8 = 0
+                var encodedByte4: UInt8 = 0
+                var encodedByte5: UInt8 = 0
+                var encodedByte6: UInt8 = 0
+                var encodedByte7: UInt8 = 0
+                
+                switch numberOfBytes {
+                case 8:
+                    encodedByte7 = UInt8(alphabet[Int( base32Bytes[byteIndex + 7] )])
+                    fallthrough
+                case 7:
+                    encodedByte6 = UInt8(alphabet[Int( base32Bytes[byteIndex + 6] )])
+                    fallthrough
+                case 6:
+                    encodedByte5 = UInt8(alphabet[Int( base32Bytes[byteIndex + 5] )])
+                    fallthrough
+                case 5:
+                    encodedByte4 = UInt8(alphabet[Int( base32Bytes[byteIndex + 4] )])
+                    fallthrough
+                case 4:
+                    encodedByte3 = UInt8(alphabet[Int( base32Bytes[byteIndex + 3] )])
+                    fallthrough
+                case 3:
+                    encodedByte2 = UInt8(alphabet[Int( base32Bytes[byteIndex + 2] )])
+                    fallthrough
+                case 2:
+                    encodedByte1 = UInt8(alphabet[Int( base32Bytes[byteIndex + 1] )])
+                    fallthrough
+                case 1:
+                    encodedByte0 = UInt8(alphabet[Int( base32Bytes[byteIndex + 0] )])
+                    fallthrough
+                default:
+                    break;
+                }
+                
+                buffer[decodedByteIndex + 0] = ((encodedByte0 << 3) & 0xF8) | ((encodedByte1 >> 2) & 0x07)
+                buffer[decodedByteIndex + 1] = ((encodedByte1 << 6) & 0xC0) | ((encodedByte2 << 1) & 0x3E) | ((encodedByte3 >> 4) & 0x01)
+                buffer[decodedByteIndex + 2] = ((encodedByte3 << 4) & 0xF0) | ((encodedByte4 >> 1) & 0x0F)
+                buffer[decodedByteIndex + 3] = ((encodedByte4 << 7) & 0x80) | ((encodedByte5 << 2) & 0x7C) | ((encodedByte6 >> 3) & 0x03)
+                buffer[decodedByteIndex + 4] = ((encodedByte6 << 5) & 0xE0) | (encodedByte7 & 0x1F)
+                
+                decodedByteIndex += 5
+            }
+        }
 		return Data(bytesNoCopy: UnsafeMutablePointer<UInt8>(buffer), count: totalNumberOfBytes, deallocator: .free)
 	}
 	return nil

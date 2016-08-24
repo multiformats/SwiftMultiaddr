@@ -182,7 +182,7 @@ func trimRight(_ theString: String, charSet: CharacterSet) -> String {
     
     var newString = theString
     
-    while String(newString.characters.last).rangeOfCharacter(from: charSet) != nil {
+    while String(describing: newString.characters.last).rangeOfCharacter(from: charSet) != nil {
         newString = String(newString.characters.dropLast())
     }
     

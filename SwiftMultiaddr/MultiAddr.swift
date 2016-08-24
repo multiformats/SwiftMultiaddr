@@ -9,7 +9,7 @@
 import Foundation
 
 public struct Multiaddr {
-    private let _bytes: [UInt8]
+    let _bytes: [UInt8]
 }
 
 public func newMultiaddr(_ addrString: String) throws -> Multiaddr {
