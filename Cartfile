@@ -1,3 +1,3 @@
-github "NeoTeo/VarInt" "master"
-github "NeoTeo/SwiftMultihash" "master"
+github "NeoTeo/VarInt" "swift4"
+github "NeoTeo/SwiftMultihash" "swift4"
 
