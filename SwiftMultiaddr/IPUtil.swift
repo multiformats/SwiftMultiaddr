@@ -196,7 +196,7 @@ func parseIPv6(_ ipString: String, zoneAllowed: Bool) throws -> (IP, String) {
     return (ipBytes,"")
 }
 
-func isZeros<N : Integer>(_ numbers: [N]) -> Bool {
+func isZeros<N : BinaryInteger>(_ numbers: [N]) -> Bool {
     for number in numbers {
         if number != 0 { return false }
     }

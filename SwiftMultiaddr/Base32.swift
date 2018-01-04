@@ -232,7 +232,8 @@ extension String {
 	
 	func base32DecodedString(_ encoding: String.Encoding = String.Encoding.utf8) -> String? {
 		if let data = self.base32DecodedData {
-			return NSString(data: data, encoding: encoding.rawValue) as? String
+            return String(data: data, encoding: .init(rawValue: encoding.rawValue))
+			//return NSString(data: data, encoding: encoding.rawValue) as? String
 		} else {
 			return nil
 		}

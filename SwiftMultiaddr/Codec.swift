@@ -218,7 +218,7 @@ func makeIPStringFromBytes< T: UIntLessThan32>(_ ipBytes: [T]) throws -> String 
             throw IPParseError.badOctet(index+1)
         }
         
-        ipString += String(octet)
+        ipString += String(describing: octet)
         if index != maxOctets-1 { ipString += "." }
     }
     return ipString
