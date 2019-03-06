@@ -1,0 +1,65 @@
+client:
+  name: swift-build
+tools: {}
+targets:
+  "main": ["/Users/deaneigenmann/Documents/SwiftMultiaddr/.build/x86_64-apple-macosx10.10/debug/SwiftMultiaddr.swiftmodule","<SwiftMultiaddr.module>"]
+  "test": ["/Users/deaneigenmann/Documents/SwiftMultiaddr/.build/x86_64-apple-macosx10.10/debug/SwiftMultiaddr.swiftmodule","/Users/deaneigenmann/Documents/SwiftMultiaddr/.build/x86_64-apple-macosx10.10/debug/SwiftMultiaddrPackageTests.xctest/Contents/MacOS/SwiftMultiaddrPackageTests","/Users/deaneigenmann/Documents/SwiftMultiaddr/.build/x86_64-apple-macosx10.10/debug/SwiftMultiaddrTests.swiftmodule","<SwiftMultiaddr.module>","<SwiftMultiaddrPackageTests.test>","<SwiftMultiaddrTests.module>"]
+  "SwiftMultiaddr.module": ["/Users/deaneigenmann/Documents/SwiftMultiaddr/.build/x86_64-apple-macosx10.10/debug/SwiftMultiaddr.swiftmodule","<SwiftMultiaddr.module>"]
+  "SwiftMultiaddrPackageTests.test": ["/Users/deaneigenmann/Documents/SwiftMultiaddr/.build/x86_64-apple-macosx10.10/debug/SwiftMultiaddrPackageTests.xctest/Contents/MacOS/SwiftMultiaddrPackageTests","<SwiftMultiaddrPackageTests.test>"]
+  "SwiftMultiaddrTests.module": ["/Users/deaneigenmann/Documents/SwiftMultiaddr/.build/x86_64-apple-macosx10.10/debug/SwiftMultiaddrTests.swiftmodule","<SwiftMultiaddrTests.module>"]
+default: "main"
+commands: 
+  "<C.SwiftMultiaddr.module>":
+    tool: phony
+    inputs: ["/Users/deaneigenmann/Documents/SwiftMultiaddr/.build/x86_64-apple-macosx10.10/debug/SwiftMultiaddr.swiftmodule"]
+    outputs: ["<SwiftMultiaddr.module>"]
+
+  "<C.SwiftMultiaddrPackageTests.test>":
+    tool: phony
+    inputs: ["/Users/deaneigenmann/Documents/SwiftMultiaddr/.build/x86_64-apple-macosx10.10/debug/SwiftMultiaddrPackageTests.xctest/Contents/MacOS/SwiftMultiaddrPackageTests"]
+    outputs: ["<SwiftMultiaddrPackageTests.test>"]
+
+  "<C.SwiftMultiaddrTests.module>":
+    tool: phony
+    inputs: ["/Users/deaneigenmann/Documents/SwiftMultiaddr/.build/x86_64-apple-macosx10.10/debug/SwiftMultiaddrTests.swiftmodule"]
+    outputs: ["<SwiftMultiaddrTests.module>"]
+
+  "C.SwiftMultiaddr.module":
+    tool: swift-compiler
+    executable: "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    module-name: "SwiftMultiaddr"
+    module-output-path: "/Users/deaneigenmann/Documents/SwiftMultiaddr/.build/x86_64-apple-macosx10.10/debug/SwiftMultiaddr.swiftmodule"
+    inputs: ["/Users/deaneigenmann/Documents/SwiftMultiaddr/Sources/SwiftMultiaddr/Base32.swift","/Users/deaneigenmann/Documents/SwiftMultiaddr/Sources/SwiftMultiaddr/Codec.swift","/Users/deaneigenmann/Documents/SwiftMultiaddr/Sources/SwiftMultiaddr/IPUtil.swift","/Users/deaneigenmann/Documents/SwiftMultiaddr/Sources/SwiftMultiaddr/MultiAddr.swift","/Users/deaneigenmann/Documents/SwiftMultiaddr/Sources/SwiftMultiaddr/Protocols.swift"]
+    outputs: ["/Users/deaneigenmann/Documents/SwiftMultiaddr/.build/x86_64-apple-macosx10.10/debug/SwiftMultiaddr.build/Base32.swift.o","/Users/deaneigenmann/Documents/SwiftMultiaddr/.build/x86_64-apple-macosx10.10/debug/SwiftMultiaddr.build/Codec.swift.o","/Users/deaneigenmann/Documents/SwiftMultiaddr/.build/x86_64-apple-macosx10.10/debug/SwiftMultiaddr.build/IPUtil.swift.o","/Users/deaneigenmann/Documents/SwiftMultiaddr/.build/x86_64-apple-macosx10.10/debug/SwiftMultiaddr.build/MultiAddr.swift.o","/Users/deaneigenmann/Documents/SwiftMultiaddr/.build/x86_64-apple-macosx10.10/debug/SwiftMultiaddr.build/Protocols.swift.o","/Users/deaneigenmann/Documents/SwiftMultiaddr/.build/x86_64-apple-macosx10.10/debug/SwiftMultiaddr.swiftmodule"]
+    import-paths: ["/Users/deaneigenmann/Documents/SwiftMultiaddr/.build/x86_64-apple-macosx10.10/debug"]
+    temps-path: "/Users/deaneigenmann/Documents/SwiftMultiaddr/.build/x86_64-apple-macosx10.10/debug/SwiftMultiaddr.build"
+    objects: ["/Users/deaneigenmann/Documents/SwiftMultiaddr/.build/x86_64-apple-macosx10.10/debug/SwiftMultiaddr.build/Base32.swift.o","/Users/deaneigenmann/Documents/SwiftMultiaddr/.build/x86_64-apple-macosx10.10/debug/SwiftMultiaddr.build/Codec.swift.o","/Users/deaneigenmann/Documents/SwiftMultiaddr/.build/x86_64-apple-macosx10.10/debug/SwiftMultiaddr.build/IPUtil.swift.o","/Users/deaneigenmann/Documents/SwiftMultiaddr/.build/x86_64-apple-macosx10.10/debug/SwiftMultiaddr.build/MultiAddr.swift.o","/Users/deaneigenmann/Documents/SwiftMultiaddr/.build/x86_64-apple-macosx10.10/debug/SwiftMultiaddr.build/Protocols.swift.o"]
+    other-args: ["-swift-version","4.2","-enable-batch-mode","-target","x86_64-apple-macosx10.10","-sdk","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-Onone","-g","-enable-testing","-j4","-DSWIFT_PACKAGE","-DDEBUG","-module-cache-path","/Users/deaneigenmann/Documents/SwiftMultiaddr/.build/x86_64-apple-macosx10.10/debug/ModuleCache","-Xfrontend","-color-diagnostics"]
+    sources: ["/Users/deaneigenmann/Documents/SwiftMultiaddr/Sources/SwiftMultiaddr/Base32.swift","/Users/deaneigenmann/Documents/SwiftMultiaddr/Sources/SwiftMultiaddr/Codec.swift","/Users/deaneigenmann/Documents/SwiftMultiaddr/Sources/SwiftMultiaddr/IPUtil.swift","/Users/deaneigenmann/Documents/SwiftMultiaddr/Sources/SwiftMultiaddr/MultiAddr.swift","/Users/deaneigenmann/Documents/SwiftMultiaddr/Sources/SwiftMultiaddr/Protocols.swift"]
+    is-library: true
+    enable-whole-module-optimization: false
+    num-threads: "4"
+
+  "C.SwiftMultiaddrPackageTests.test":
+    tool: shell
+    description: "Linking ./.build/x86_64-apple-macosx10.10/debug/SwiftMultiaddrPackageTests.xctest/Contents/MacOS/SwiftMultiaddrPackageTests"
+    inputs: ["/Users/deaneigenmann/Documents/SwiftMultiaddr/.build/x86_64-apple-macosx10.10/debug/SwiftMultiaddr.build/Base32.swift.o","/Users/deaneigenmann/Documents/SwiftMultiaddr/.build/x86_64-apple-macosx10.10/debug/SwiftMultiaddr.build/Codec.swift.o","/Users/deaneigenmann/Documents/SwiftMultiaddr/.build/x86_64-apple-macosx10.10/debug/SwiftMultiaddr.build/IPUtil.swift.o","/Users/deaneigenmann/Documents/SwiftMultiaddr/.build/x86_64-apple-macosx10.10/debug/SwiftMultiaddr.build/MultiAddr.swift.o","/Users/deaneigenmann/Documents/SwiftMultiaddr/.build/x86_64-apple-macosx10.10/debug/SwiftMultiaddr.build/Protocols.swift.o","/Users/deaneigenmann/Documents/SwiftMultiaddr/.build/x86_64-apple-macosx10.10/debug/SwiftMultiaddrTests.build/SwiftMultiaddrTests.swift.o"]
+    outputs: ["/Users/deaneigenmann/Documents/SwiftMultiaddr/.build/x86_64-apple-macosx10.10/debug/SwiftMultiaddrPackageTests.xctest/Contents/MacOS/SwiftMultiaddrPackageTests"]
+    args: ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc","-target","x86_64-apple-macosx10.10","-sdk","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-g","-L","/Users/deaneigenmann/Documents/SwiftMultiaddr/.build/x86_64-apple-macosx10.10/debug","-o","/Users/deaneigenmann/Documents/SwiftMultiaddr/.build/x86_64-apple-macosx10.10/debug/SwiftMultiaddrPackageTests.xctest/Contents/MacOS/SwiftMultiaddrPackageTests","-module-name","SwiftMultiaddrPackageTests","-Xlinker","-bundle","@/Users/deaneigenmann/Documents/SwiftMultiaddr/.build/x86_64-apple-macosx10.10/debug/SwiftMultiaddrPackageTests.product/Objects.LinkFileList"]
+
+  "C.SwiftMultiaddrTests.module":
+    tool: swift-compiler
+    executable: "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    module-name: "SwiftMultiaddrTests"
+    module-output-path: "/Users/deaneigenmann/Documents/SwiftMultiaddr/.build/x86_64-apple-macosx10.10/debug/SwiftMultiaddrTests.swiftmodule"
+    inputs: ["/Users/deaneigenmann/Documents/SwiftMultiaddr/.build/x86_64-apple-macosx10.10/debug/SwiftMultiaddr.swiftmodule","/Users/deaneigenmann/Documents/SwiftMultiaddr/Tests/SwiftMultiaddrTests/SwiftMultiaddrTests.swift"]
+    outputs: ["/Users/deaneigenmann/Documents/SwiftMultiaddr/.build/x86_64-apple-macosx10.10/debug/SwiftMultiaddrTests.build/SwiftMultiaddrTests.swift.o","/Users/deaneigenmann/Documents/SwiftMultiaddr/.build/x86_64-apple-macosx10.10/debug/SwiftMultiaddrTests.swiftmodule"]
+    import-paths: ["/Users/deaneigenmann/Documents/SwiftMultiaddr/.build/x86_64-apple-macosx10.10/debug"]
+    temps-path: "/Users/deaneigenmann/Documents/SwiftMultiaddr/.build/x86_64-apple-macosx10.10/debug/SwiftMultiaddrTests.build"
+    objects: ["/Users/deaneigenmann/Documents/SwiftMultiaddr/.build/x86_64-apple-macosx10.10/debug/SwiftMultiaddrTests.build/SwiftMultiaddrTests.swift.o"]
+    other-args: ["-swift-version","4.2","-enable-batch-mode","-target","x86_64-apple-macosx10.10","-sdk","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-Onone","-g","-enable-testing","-j4","-DSWIFT_PACKAGE","-DDEBUG","-module-cache-path","/Users/deaneigenmann/Documents/SwiftMultiaddr/.build/x86_64-apple-macosx10.10/debug/ModuleCache","-Xfrontend","-color-diagnostics"]
+    sources: ["/Users/deaneigenmann/Documents/SwiftMultiaddr/Tests/SwiftMultiaddrTests/SwiftMultiaddrTests.swift"]
+    is-library: true
+    enable-whole-module-optimization: false
+    num-threads: "4"
+
