@@ -1,9 +1,0 @@
-version: "Apple Swift version 4.2.1 (swiftlang-1000.11.42 clang-1000.11.45.1)"
-options: "3004e431ea6a6a68c3d2cbb4fa0b0d6e"
-build_time: [1551911370, 48940000]
-inputs:
-  "/Users/deaneigenmann/Documents/SwiftMultiaddr/Sources/SwiftMultiaddr/Base32.swift": !dirty [1551910726, 0]
-  "/Users/deaneigenmann/Documents/SwiftMultiaddr/Sources/SwiftMultiaddr/Codec.swift": !dirty [1551910726, 0]
-  "/Users/deaneigenmann/Documents/SwiftMultiaddr/Sources/SwiftMultiaddr/IPUtil.swift": !dirty [1551910726, 0]
-  "/Users/deaneigenmann/Documents/SwiftMultiaddr/Sources/SwiftMultiaddr/MultiAddr.swift": !dirty [1551910726, 0]
-  "/Users/deaneigenmann/Documents/SwiftMultiaddr/Sources/SwiftMultiaddr/Protocols.swift": !dirty [1551910726, 0]
