@@ -28,10 +28,10 @@ enum CodecError : Error {
 func stringToBytes(_ multiAddrStr: String) throws -> [UInt8] {
     
     let tmpString = trimRight(multiAddrStr, charSet: CharacterSet(charactersIn: "/"))
-    var protoComponents = tmpString.characters.split{$0 == "/"}.map(String.init)
+    var protoComponents = tmpString.split{$0 == "/"}.map(String.init)
     let fwSlash: Character = "/"
     
-    if tmpString.characters.first != fwSlash { throw CodecError.invalidMultiAddress }
+    if tmpString.first != fwSlash { throw CodecError.invalidMultiAddress }
 
     var bytes: [UInt8] = []
 //    for proto in protoComponents {
@@ -112,11 +112,11 @@ func addressStringToBytes(_ proto: Protocol, addrString: String) throws -> [UInt
         return [UInt8(portVal >> 8),UInt8(portVal & 0xff)]
         
     case P_ONION:
-        var components = addrString.characters.split{$0 == ":"}.map(String.init)
+        let components = addrString.split{$0 == ":"}.map(String.init)
         if components.count != 2 { throw CodecError.noPortNumber }
         
         /// A valid tor onion address is 16 characters.
-        if components[0].characters.count != 16 { throw CodecError.notTorOnion }
+        if components[0].count != 16 { throw CodecError.notTorOnion }
         
         let onionHostBytes = components[0].uppercased()
 //        guard let onionData = onionHostBytes.base32DecodedData else { throw CodecError.failedBase32Decoding }
@@ -182,8 +182,8 @@ func trimRight(_ theString: String, charSet: CharacterSet) -> String {
     
     var newString = theString
     
-    while String(describing: newString.characters.last).rangeOfCharacter(from: charSet) != nil {
-        newString = String(newString.characters.dropLast())
+    while String(describing: newString.last).rangeOfCharacter(from: charSet) != nil {
+        newString = String(newString.dropLast())
     }
     
     return newString

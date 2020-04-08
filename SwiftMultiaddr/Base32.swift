@@ -49,8 +49,8 @@ func Base32Encode(_ data: Data, alphabet: Array<String>) -> String {
 	
 	var result = String()
 	
-    data.withUnsafeBytes { (bytes: UnsafePointer<UInt8>)->Void in
-        
+//    data.withUnsafeBytes { (bytes: UnsafePointer<UInt8>)->Void in
+    data.withUnsafeBytes { bytes in
         for byteIndex in stride(from: 0, to: data.count, by: 5) {
             let maxOffset = (byteIndex + 5 >= data.count) ? data.count : byteIndex + 5
             let numberOfBytes = maxOffset - byteIndex
@@ -122,7 +122,7 @@ func Base32Encode(_ data: Data, alphabet: Array<String>) -> String {
 func Base32Decode(_ data: String, alphabet: Array<Int>, characters: Array<String>) -> Data? {
 	var processingData = ""
 	
-	for char in Array(data.uppercased().characters) {
+	for char in Array(data.uppercased()) {
 		let str = String(char)
 		if characters.contains(str) {
 			processingData += str
@@ -154,7 +154,8 @@ func Base32Decode(_ data: String, alphabet: Array<Int>, characters: Array<String
 		// allocate a buffer big enough for our decode
         let buffer = UnsafeMutablePointer<UInt8>.allocate(capacity: totalNumberOfBytes)
 
-        base32Data.withUnsafeBytes { (base32Bytes: UnsafePointer<UInt8>)->Void in
+//        base32Data.withUnsafeBytes { (base32Bytes: UnsafePointer<UInt8>)->Void in
+        base32Data.withUnsafeBytes { base32Bytes in
             
             var decodedByteIndex = 0;
             for byteIndex in stride(from: 0, to: base32Data.count, by: 8) {

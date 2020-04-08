@@ -30,7 +30,7 @@ let V4InV6Prefix: [UInt8] = [0,0,0,0,0,0,0,0,0,0,0xff,0xff]
 func IPv4(_ a: UInt8, _ b: UInt8, _ c: UInt8, _ d: UInt8) -> IP {
     
     var outP: IP = Array<UInt8>(repeating: 0, count: IPv6Len)
-    outP.replaceSubrange(Range(0..<V4InV6Prefix.count), with: V4InV6Prefix)
+    outP.replaceSubrange(0..<V4InV6Prefix.count, with: V4InV6Prefix)
     outP[12] = a
     outP[13] = b
     outP[14] = c
@@ -44,7 +44,9 @@ func firstHexString(fromString hexString: String) -> String? {
     var validHexString = hexString
     for char in hexString.utf16 {
         if validHex.contains(UnicodeScalar(char)!) == false {
-            validHexString = hexString.substring(to: hexString.characters.index(hexString.startIndex, offsetBy: idx))
+            
+//            validHexString = hexString.substring(to: hexString.index(hexString.startIndex, offsetBy: idx))
+            validHexString = String(hexString[..<hexString.index(hexString.startIndex, offsetBy: idx)])
             return validHexString
         }
         idx += 1
@@ -54,7 +56,7 @@ func firstHexString(fromString hexString: String) -> String? {
 
 func parseIP(_ ipString: String) throws -> IP {
     /// We decide on the IP version based on the separator.
-    for char in ipString.characters {
+    for char in ipString {
         switch char {
         case ".":
             return try parseIPv4(ipString)
@@ -70,7 +72,7 @@ func parseIP(_ ipString: String) throws -> IP {
 func parseIPv4(_ ipString: String) throws -> IP {
 
     var ipBytes: IP = []
-    let components  = ipString.characters.split { $0 == "."}
+    let components  = ipString.split { $0 == "."}
     
     guard components.count == 4 else { throw IPError.tooManyOctets }
     
@@ -99,13 +101,15 @@ func parseIPv6(_ ipString: String, zoneAllowed: Bool) throws -> (IP, String) {
     
     if zoneAllowed { (ipTmpString, zone) = splitHostZone(ipTmpString) }
     
-    let ipStringLength = ipTmpString.characters.count
+    let ipStringLength = ipTmpString.count
     
     if ipStringLength >= 2 && ipString.hasPrefix("::") {
         
         ellipsis        = 0
         charactersRead  = 2
-        ipTmpString = ipTmpString.substring(from: ipTmpString.index(ipTmpString.startIndex, offsetBy: 2))
+        let i = ipTmpString.index(ipTmpString.startIndex, offsetBy: 2)
+        ipTmpString = String(ipTmpString[i...])
+//        ipTmpString = ipTmpString.substring(from: ipTmpString.index(ipTmpString.startIndex, offsetBy: 2))
         
         if ipStringLength == charactersRead {
             return (ipBytes, zone)
@@ -118,21 +122,22 @@ func parseIPv6(_ ipString: String, zoneAllowed: Bool) throws -> (IP, String) {
         guard let firstHex = firstHexString(fromString: ipTmpString) else {
             throw IPError.invalidIPString
         }
-        charactersRead += firstHex.characters.count
+        charactersRead += firstHex.count
         guard let hexVal = Int(firstHex, radix: 16), hexVal <= 0xffff else {
             throw IPError.invalidIPString
         }
         
-        ipTmpString = ipTmpString.substring(from: ipTmpString.index(ipTmpString.startIndex, offsetBy: firstHex.characters.count))
+        let i = ipTmpString.index(ipTmpString.startIndex, offsetBy: firstHex.count)
+        ipTmpString = String(ipTmpString[i...])
         
         var separator: Character?
-        if ipTmpString.characters.count > 0 {
+        if ipTmpString.count > 0 {
             separator = ipTmpString.remove(at: ipTmpString.startIndex)
             charactersRead += 1
         }
         
         /// We might be in a trailing IPv4
-        if ipTmpString.characters.count > 0 && separator == "." {
+        if ipTmpString.count > 0 && separator == "." {
 
             if ellipsis < 0 && outIndex != IPv6Len-IPv4Len {
                 throw IPError.separatorInWrongPosition
@@ -162,7 +167,7 @@ func parseIPv6(_ ipString: String, zoneAllowed: Bool) throws -> (IP, String) {
         if ipTmpString == "" { break }
         
         // Check the first character of the next value...
-        let firstChar = ipTmpString.characters.first!
+        let firstChar = ipTmpString.first!
         
         /// making sure it's a colon
         if separator != ":" || charactersRead+1 == ipStringLength { throw IPError.invalidIPString }
@@ -175,7 +180,7 @@ func parseIPv6(_ ipString: String, zoneAllowed: Bool) throws -> (IP, String) {
             ipTmpString.remove(at: ipTmpString.startIndex)
             charactersRead += 1
             
-            if ipTmpString.characters.count == 0 {
+            if ipTmpString.count == 0 {
                 break
             }
         }
@@ -270,7 +275,8 @@ func hexStringToInt(_ str: String) -> (Int, Int)? {
     var idx = 0
     for char in str.utf16 {
         if validHex.contains(UnicodeScalar(char)!) == false {
-            let validHexString = str.substring(to: str.characters.index(str.startIndex, offsetBy: idx))
+            let i = str.index(str.startIndex, offsetBy: idx)
+            let validHexString = String(str[..<i])
             return (Int(validHexString, radix: 16)!,idx)
         }
         idx += 1

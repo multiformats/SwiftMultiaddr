@@ -66,7 +66,9 @@ extension Multiaddr {
         guard let range = oldString.range(of: newString, options: .backwards) else {
             return Multiaddr(_bytes: _bytes)
         }
-        let ma = try newMultiaddr(oldString.substring(to: range.lowerBound))
+        
+        let ma = try newMultiaddr(String(oldString[..<range.lowerBound]))
+//        let ma = try newMultiaddr(oldString[..<range.lowerBound])
         return ma
     }
 }

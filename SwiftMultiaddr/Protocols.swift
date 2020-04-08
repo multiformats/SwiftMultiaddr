@@ -74,7 +74,7 @@ func protocolWithCode(_ code: Int) -> Protocol? {
 func protocolsWithString(_ string: String) throws -> [Protocol]? {
     
     let trimmedString = string.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
-    let splitString = trimmedString.characters.split{$0 == "/"}.map(String.init)
+    let splitString = trimmedString.split{$0 == "/"}.map(String.init)
     
     if splitString.count != 0 {
         
