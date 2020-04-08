@@ -35,7 +35,7 @@ For more information on how to install via Carthage see the [README](https://git
 
 ### Requirements
 
-- Swift 3
+- Swift 5
 
 ## Usage
 
