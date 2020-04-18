@@ -11,7 +11,7 @@ import XCTest
 
 class IpUtilTests: XCTestCase {
 
-    func testParseIP() {
+    func testParseIP() throws {
         
         let IPTestCases: [(input: String, output: IP)] = [
             ("127.0.1.2", IPv4(127, 0, 1, 2)),
@@ -27,7 +27,7 @@ class IpUtilTests: XCTestCase {
             ("2001:4860:0:2001::68", IP(arrayLiteral: 0x20, 0x01, 0x48, 0x60, 0, 0, 0x20, 0x01, 0, 0, 0, 0, 0, 0, 0x00, 0x68)),
             ("2001:4860:0000:2001:0000:0000:0000:0068", IP(arrayLiteral: 0x20, 0x01, 0x48, 0x60, 0, 0, 0x20, 0x01, 0, 0, 0, 0, 0, 0, 0x00, 0x68)),
             
-            /// The following should fail
+            // The following should fail
             ("127.0.0.256", IP()),
             ("abc", IP()),
             ("fe80::1%lo0", IP()),
@@ -39,12 +39,9 @@ class IpUtilTests: XCTestCase {
         for testCase in IPTestCases {
             do {
                 let out = try parseIP(testCase.input)
-                XCTAssert(out == testCase.output)
+                XCTAssertEqual(out, testCase.output)
             } catch {
-                if testCase.output != IP() {
-                    print("ERROR: ",error, "for test case",testCase.input)
-                    XCTFail()
-                }
+                XCTAssertEqual(testCase.output, IP())
             }
         }
     }

@@ -10,9 +10,7 @@ import XCTest
 @testable import SwiftMultiaddr
 
 class SwiftMultiaddrTests: XCTestCase {
-        
-    func testMultiAddrConstruction() {
-    
+    func testMultiAddrConstruction() throws {
         let failCases: [String] = [
             "/ip4",
             "/ip4/::1",
@@ -69,88 +67,45 @@ class SwiftMultiaddrTests: XCTestCase {
             "/ip4/127.0.0.1/ipfs/QmcgpsyWgH8Y8ajJz1Cu72KnS5uo2Aa2LpzU7kinSupNKC",
             "/ip4/127.0.0.1/ipfs/QmcgpsyWgH8Y8ajJz1Cu72KnS5uo2Aa2LpzU7kinSupNKC/tcp/1234"
         ]
-        
-        
-        /// First we test for cases that need to fail the construction to pass the test
-        for testCase in failCases {
-            do {
-                try _ = newMultiaddr(testCase)
-                XCTFail("The constructor should have failed.")
-            } catch {}
+
+        try failCases.forEach {
+            XCTAssertThrowsError(try Multiaddr.newMultiaddr($0))
         }
-        
-        for testCase in passCases {
-            do {
-                let multiaddress = try newMultiaddr(testCase)
-                print(multiaddress)
-                
-                
-            } catch {
-                print("Error:",error)
-                XCTFail("The constructor should have succeeded.")
-            }
+
+        try passCases.forEach {
+            XCTAssertNoThrow(try Multiaddr.newMultiaddr($0))
         }
     }
     
-    func testEqual() {
-        do {
-            let m1 = try newMultiaddr("/ip4/127.0.0.1/udp/1234")
-            let m2 = try newMultiaddr("/ip4/127.0.0.1/tcp/1234")
-            let m3 = try newMultiaddr("/ip4/127.0.0.1/tcp/1234")
-            let m4 = try newMultiaddr("/ip4/127.0.0.1/tcp/1234/")
-            
-            if m1 == m2     { XCTFail("Should not be equal") }
-            if m2 == m1     { XCTFail("Should not be equal") }
-            if !(m2 == m3)  { XCTFail("Should be equal") }
-            if !(m3 == m2)  { XCTFail("Should be equal") }
-            if !(m1 == m1)  { XCTFail("Should be equal") }
-            if !(m2 == m4)  { XCTFail("Should be equal") }
-            if !(m4 == m3)  { XCTFail("Should be equal") }
-            
-        } catch {
-            XCTFail("constructor failed!")
-        }
+    func testEqualityConformance() throws {
+        let m1 = try Multiaddr.newMultiaddr("/ip4/127.0.0.1/udp/1234")
+        let m2 = try Multiaddr.newMultiaddr("/ip4/127.0.0.1/tcp/1234")
+        let m3 = try Multiaddr.newMultiaddr("/ip4/127.0.0.1/tcp/1234")
+        let m4 = try Multiaddr.newMultiaddr("/ip4/127.0.0.1/tcp/1234/")
+
+        XCTAssertNotEqual(m1, m2)
+        XCTAssertEqual(m1, m1)
+        XCTAssertEqual(m2, m3)
+        XCTAssertEqual(m2, m4)
+        XCTAssertEqual(m4, m3)
     }
     
-    func testEnDecapsulate() {
-        do {
-            let m   = try newMultiaddr("/ip4/127.0.0.1/udp/1234")
-            let m2  = try newMultiaddr("/udp/5678")
-            
-            let b   = m.encapsulate(m2)
-            var s   = try b.string()
-            
-            if s != "/ip4/127.0.0.1/udp/1234/udp/5678" {
-                let eMsg = "Encapsulate /ip4/127.0.0.1/udp/1234/udp/5678 failed " + s
-                XCTFail(eMsg)
-            }
-            
-            
-            let m3  = try newMultiaddr("/udp/5678")
-            let c   = try b.decapsulate(m3)
-            s       = try c.string()
-            
-            if s != "/ip4/127.0.0.1/udp/1234" {
-                let eMsg = "Decapsulate /udp failed. /ip4/127.0.0.1/udp/1234" + s
-                XCTFail(eMsg)
-            }
-            
-            
-            /** Here decapsulate will throw because it will attempt to create a
-             empty Multiaddr and fail. Failing this is correct and passes the
-             test by dropping into the empty catch./Volumes/HAL/music/Bram.Stokers.Dracula.1CD.1992.OST.[WmC]
-             */
-            let m4  = try newMultiaddr("/ip4/127.0.0.1")
-            do {
-                let d   = try c.decapsulate(m4)
-                s       = try d.string()
-                let eMsg = "Decapsulate /ip4 failed. /"
-                XCTFail(eMsg)
-            } catch {}
-            
-        } catch {
-            print(error)
-            XCTFail()
-        }
+    func testEncapsulatingWithDecapsulating() throws {
+        let m = try Multiaddr.newMultiaddr("/ip4/127.0.0.1/udp/1234")
+        let m2 = try Multiaddr.newMultiaddr("/udp/5678")
+
+        let b = m.encapsulate(m2)
+        var s = try b.string()
+
+        XCTAssertEqual(s, "/ip4/127.0.0.1/udp/1234/udp/5678", "Encapsulate /ip4/127.0.0.1/udp/1234/udp/5678 failed " + s)
+
+        let m3 = try Multiaddr.newMultiaddr("/udp/5678")
+        let c = try b.decapsulate(m3)
+        s = try c.string()
+
+        XCTAssertEqual(s, "/ip4/127.0.0.1/udp/1234", "Decapsulate /udp failed. /ip4/127.0.0.1/udp/1234" + s)
+
+        let m4 = try Multiaddr.newMultiaddr("/ip4/127.0.0.1")
+        XCTAssertThrowsError(try c.decapsulate(m4))
     }
 }
