@@ -11,15 +11,19 @@ import Foundation
 public struct Multiaddr: Equatable {
     public private(set) var bytes: [UInt8]
 
-    // MARK: - Constructors
-    public static func newMultiaddr(_ addrString: String) throws -> Multiaddr {
-        let multiaddressBytes = try stringToBytes(addrString)
-        return Multiaddr(bytes: multiaddressBytes)
+    // MARK: - Initializers
+    private init(bytes: [UInt8]) {
+        self.bytes = bytes
     }
 
-    public static func newMultiaddrBytes(_ address: [UInt8]) throws -> Multiaddr {
+    public init(address: String) throws {
+        let multiaddressBytes = try stringToBytes(address)
+        self.init(bytes: multiaddressBytes)
+    }
+
+    public init(address: [UInt8]) throws {
         let addressString = try bytesToString(address)
-        return try newMultiaddr(addressString)
+        try self.init(address: addressString)
     }
 }
 
@@ -63,6 +67,6 @@ extension Multiaddr {
             return Multiaddr(bytes: bytes)
         }
 
-        return try Multiaddr.newMultiaddr(String(oldString[..<range.lowerBound]))
+        return try .init(address: String(oldString[..<range.lowerBound]))
     }
 }

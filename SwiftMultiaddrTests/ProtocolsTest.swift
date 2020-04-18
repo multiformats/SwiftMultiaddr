@@ -12,7 +12,7 @@ import XCTest
 class ProtocolsTest: XCTestCase {
 
     func testProtocols() throws {
-        let m = try Multiaddr.newMultiaddr("/ip4/127.0.0.1/udp/1234")
+        let m = try Multiaddr(address: "/ip4/127.0.0.1/udp/1234")
         let ps = try m.protocols()
 
         XCTAssertEqual(ps[0].code, protocolWithName("ip4")?.code)

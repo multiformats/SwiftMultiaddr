@@ -69,19 +69,19 @@ class SwiftMultiaddrTests: XCTestCase {
         ]
 
         try failCases.forEach {
-            XCTAssertThrowsError(try Multiaddr.newMultiaddr($0))
+            XCTAssertThrowsError(try Multiaddr(address: $0))
         }
 
         try passCases.forEach {
-            XCTAssertNoThrow(try Multiaddr.newMultiaddr($0))
+            XCTAssertNoThrow(try Multiaddr(address: $0))
         }
     }
     
     func testEqualityConformance() throws {
-        let m1 = try Multiaddr.newMultiaddr("/ip4/127.0.0.1/udp/1234")
-        let m2 = try Multiaddr.newMultiaddr("/ip4/127.0.0.1/tcp/1234")
-        let m3 = try Multiaddr.newMultiaddr("/ip4/127.0.0.1/tcp/1234")
-        let m4 = try Multiaddr.newMultiaddr("/ip4/127.0.0.1/tcp/1234/")
+        let m1 = try Multiaddr(address: "/ip4/127.0.0.1/udp/1234")
+        let m2 = try Multiaddr(address: "/ip4/127.0.0.1/tcp/1234")
+        let m3 = try Multiaddr(address: "/ip4/127.0.0.1/tcp/1234")
+        let m4 = try Multiaddr(address: "/ip4/127.0.0.1/tcp/1234/")
 
         XCTAssertNotEqual(m1, m2)
         XCTAssertEqual(m1, m1)
@@ -91,21 +91,21 @@ class SwiftMultiaddrTests: XCTestCase {
     }
     
     func testEncapsulatingWithDecapsulating() throws {
-        let m = try Multiaddr.newMultiaddr("/ip4/127.0.0.1/udp/1234")
-        let m2 = try Multiaddr.newMultiaddr("/udp/5678")
+        let m = try Multiaddr(address:"/ip4/127.0.0.1/udp/1234")
+        let m2 = try Multiaddr(address:"/udp/5678")
 
         let b = m.encapsulate(m2)
         var s = try b.string()
 
         XCTAssertEqual(s, "/ip4/127.0.0.1/udp/1234/udp/5678", "Encapsulate /ip4/127.0.0.1/udp/1234/udp/5678 failed " + s)
 
-        let m3 = try Multiaddr.newMultiaddr("/udp/5678")
+        let m3 = try Multiaddr(address:"/udp/5678")
         let c = try b.decapsulate(m3)
         s = try c.string()
 
         XCTAssertEqual(s, "/ip4/127.0.0.1/udp/1234", "Decapsulate /udp failed. /ip4/127.0.0.1/udp/1234" + s)
 
-        let m4 = try Multiaddr.newMultiaddr("/ip4/127.0.0.1")
+        let m4 = try Multiaddr(address:"/ip4/127.0.0.1")
         XCTAssertThrowsError(try c.decapsulate(m4))
     }
 }
