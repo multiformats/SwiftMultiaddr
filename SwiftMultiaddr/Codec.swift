@@ -7,7 +7,6 @@
 //  Licensed under MIT See LICENCE file in the root of this project for details. 
 
 import Foundation
-//import Base32
 import SwiftMultihash
 
 enum CodecError : Error {
@@ -29,7 +28,7 @@ func stringToBytes(_ multiAddrStr: String) throws -> [UInt8] {
     
     let tmpString = trimRight(multiAddrStr, charSet: CharacterSet(charactersIn: "/"))
     var protoComponents = tmpString.split{$0 == "/"}.map(String.init)
-    let fwSlash: Character = "/"
+    let fwSlash = Character("/")
     
     if tmpString.first != fwSlash { throw CodecError.invalidMultiAddress }
 
@@ -44,9 +43,9 @@ func stringToBytes(_ multiAddrStr: String) throws -> [UInt8] {
         bytes += codeToVarint(multiAddrProtocol.code)
         
         if multiAddrProtocol.size == 0 { continue }
-        
+
         if protoComponents.count < 1 { throw CodecError.noAddress }
-        
+
         let addrBytes = try addressStringToBytes(multiAddrProtocol, addrString: protoComponents.removeFirst())
         
         bytes += addrBytes!
@@ -60,7 +59,7 @@ func bytesToString(_ buffer: [UInt8]) throws -> String {
     var addressString = ""
     var addressBytes = buffer
 
-    while addressBytes.count > 0 {
+    while !addressBytes.isEmpty {
         
         let (code, num) = readVarIntCode(addressBytes)
         addressBytes = Array(addressBytes[num..<addressBytes.count])
@@ -152,16 +151,13 @@ func addressStringToBytes(_ proto: Protocol, addrString: String) throws -> [UInt
 func addressBytesToString(_ proto: Protocol, buffer: [UInt8]) throws -> String {
     switch proto.code {
     case P_IP4, P_IP6:
-        
         return try makeIPStringFromBytes(buffer)
         
     case P_TCP, P_UDP, P_DCCP, P_SCTP:
-        
         if buffer.count != 2 { throw CodecError.parseAddressFail }
         return String(UInt16(buffer[0]) << 8 | UInt16(buffer[1]))
         
     case P_IPFS:
-        
         var tmpBuffer = buffer
         let (size, bytesRead) = readVarIntCode(buffer)
         tmpBuffer = Array<UInt8>(buffer[bytesRead..<buffer.count])
@@ -171,12 +167,14 @@ func addressBytesToString(_ proto: Protocol, buffer: [UInt8]) throws -> String {
         let multihash = try SwiftMultihash.cast(tmpBuffer)
         return SwiftMultihash.b58String(multihash)
         
-    default: break
+    default:
+        break
     }
+    
     return ""
 }
 
-/// Helper functions not available (afaik) in the Swift/Cocoa libraries.
+// MARK:- Helper Functions
 
 func trimRight(_ theString: String, charSet: CharacterSet) -> String {
     
@@ -208,16 +206,19 @@ func makeIPStringFromBytes< T: UIntLessThan32>(_ ipBytes: [T]) throws -> String 
         maxOctets = 8
     }
     
-    guard ipBytes.count == maxOctets else { throw IPParseError.wrongSize }
-    var ipString = ""
+    guard ipBytes.count == maxOctets else {
+        throw IPParseError.wrongSize
+    }
     
+    var ipString = ""
     
     for index in 0..<ipBytes.count {
         let octet = ipBytes[index]
-        if octet < 0 || octet > maxVal {
+
+        guard octet >= 0 || octet <= maxVal else {
             throw IPParseError.badOctet(index+1)
         }
-        
+
         ipString += String(describing: octet)
         if index != maxOctets-1 { ipString += "." }
     }

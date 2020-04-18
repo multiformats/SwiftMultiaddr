@@ -8,41 +8,39 @@
 
 import Foundation
 
-public struct Multiaddr {
-    let _bytes: [UInt8]
-}
+public struct Multiaddr: Equatable {
+    public private(set) var bytes: [UInt8]
 
-public func newMultiaddr(_ addrString: String) throws -> Multiaddr {
-    let multiaddressBytes = try stringToBytes(addrString)
-    return Multiaddr(_bytes: multiaddressBytes)
-}
+    // MARK: - Constructors
+    public static func newMultiaddr(_ addrString: String) throws -> Multiaddr {
+        let multiaddressBytes = try stringToBytes(addrString)
+        return Multiaddr(bytes: multiaddressBytes)
+    }
 
-public func newMultiaddrBytes(_ address: [UInt8]) throws -> Multiaddr {
-    let addressString = try bytesToString(address)
-    return try newMultiaddr(addressString)
+    public static func newMultiaddrBytes(_ address: [UInt8]) throws -> Multiaddr {
+        let addressString = try bytesToString(address)
+        return try newMultiaddr(addressString)
+    }
 }
 
 extension Multiaddr {
-    
-    public func bytes() -> [UInt8] {
-        return _bytes
+    enum MultiaddrError: Error {
+        case noSuchProtocol(code: Int)
     }
-    
-    /// string returns the string representation of a Multiaddr
+
+    /// Returns the string representation of a Multiaddr.
     public func string() throws -> String {
-        let maString = try bytesToString(_bytes)
-        return maString
+        try bytesToString(bytes)
     }
     
-    public func Protocols() throws -> [Protocol] {
+    public func protocols() throws -> [Protocol] {
         var ps: [Protocol] = []
-        var b = _bytes
-        while b.count > 0 {
-            
+        var b = bytes
+
+        while !b.isEmpty {
             let (code, n) = readVarIntCode(b)
             guard let proto = protocolWithCode(code) else {
-                let error = "No protocol with code" + String(code)
-                fatalError(error)
+                throw MultiaddrError.noSuchProtocol(code: code)
             }
             
             ps.append(proto)
@@ -55,25 +53,16 @@ extension Multiaddr {
     }
     
     public func encapsulate(_ addr: Multiaddr) -> Multiaddr {
-
-        return Multiaddr(_bytes: _bytes + addr._bytes)
+        Multiaddr(bytes: bytes + addr.bytes)
     }
     
     public func decapsulate(_ addr: Multiaddr) throws -> Multiaddr {
-        
         let oldString = try string()
         let newString = try addr.string()
         guard let range = oldString.range(of: newString, options: .backwards) else {
-            return Multiaddr(_bytes: _bytes)
+            return Multiaddr(bytes: bytes)
         }
-        
-        let ma = try newMultiaddr(String(oldString[..<range.lowerBound]))
-//        let ma = try newMultiaddr(oldString[..<range.lowerBound])
-        return ma
-    }
-}
 
-/// Two Multiaddr are equal if their bytes are the same.
-public func == (lhs: Multiaddr, rhs: Multiaddr) -> Bool {
-    return lhs._bytes == rhs._bytes
+        return try Multiaddr.newMultiaddr(String(oldString[..<range.lowerBound]))
+    }
 }

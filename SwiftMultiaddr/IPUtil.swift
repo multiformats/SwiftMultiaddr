@@ -39,23 +39,23 @@ func IPv4(_ a: UInt8, _ b: UInt8, _ c: UInt8, _ d: UInt8) -> IP {
 }
 
 
-func firstHexString(fromString hexString: String) -> String? {
+func firstHexString(fromString hexString: String) -> String {
     var idx = 0
-    var validHexString = hexString
     for char in hexString.utf16 {
-        if validHex.contains(UnicodeScalar(char)!) == false {
-            
-//            validHexString = hexString.substring(to: hexString.index(hexString.startIndex, offsetBy: idx))
-            validHexString = String(hexString[..<hexString.index(hexString.startIndex, offsetBy: idx)])
-            return validHexString
+        guard
+            let unicodeCharacter = UnicodeScalar(char),
+            !validHex.contains(unicodeCharacter) else {
+                idx += 1
+                continue
         }
-        idx += 1
+
+        return String(hexString[..<hexString.index(hexString.startIndex, offsetBy: idx)])
     }
-    return validHexString
+    return hexString
 }
 
 func parseIP(_ ipString: String) throws -> IP {
-    /// We decide on the IP version based on the separator.
+    // We decide on the IP version based on the separator.
     for char in ipString {
         switch char {
         case ".":
@@ -70,23 +70,19 @@ func parseIP(_ ipString: String) throws -> IP {
 }
 
 func parseIPv4(_ ipString: String) throws -> IP {
-
-    var ipBytes: IP = []
     let components  = ipString.split { $0 == "."}
     
     guard components.count == 4 else { throw IPError.tooManyOctets }
-    
-    for index in 0..<components.count {
-        
-        let octet = components[index]
-        
-        /// Check octets for range.
-        guard let byte = UInt8(String(octet)), byte >= 0 && byte <= 255 else {
-            throw IPError.badOctet(index+1)
+
+    let ipBytes = try components.enumerated().map { index, octet -> UInt8 in
+        guard let byte = UInt8(String(octet)),
+            byte >= 0 && byte <= 255 else {
+                throw IPError.badOctet(index+1)
         }
-        ipBytes.append(byte)
+
+        return byte
+
     }
-    
     return IPv4(ipBytes[0], ipBytes[1], ipBytes[2], ipBytes[3])
 }
 
@@ -118,10 +114,9 @@ func parseIPv6(_ ipString: String, zoneAllowed: Bool) throws -> (IP, String) {
     
     var outIndex = 0
     while outIndex < IPv6Len {
-        /// Strip the front charactersRead off the ipTmpString
-        guard let firstHex = firstHexString(fromString: ipTmpString) else {
-            throw IPError.invalidIPString
-        }
+        // Strip the front charactersRead off the ipTmpString
+        let firstHex = firstHexString(fromString: ipTmpString)
+
         charactersRead += firstHex.count
         guard let hexVal = Int(firstHex, radix: 16), hexVal <= 0xffff else {
             throw IPError.invalidIPString
@@ -136,9 +131,8 @@ func parseIPv6(_ ipString: String, zoneAllowed: Bool) throws -> (IP, String) {
             charactersRead += 1
         }
         
-        /// We might be in a trailing IPv4
-        if ipTmpString.count > 0 && separator == "." {
-
+        // We might be in a trailing IPv4
+        if !ipTmpString.isEmpty && separator == "." {
             if ellipsis < 0 && outIndex != IPv6Len-IPv4Len {
                 throw IPError.separatorInWrongPosition
             }
@@ -162,39 +156,44 @@ func parseIPv6(_ ipString: String, zoneAllowed: Bool) throws -> (IP, String) {
         ipBytes[outIndex]   = UInt8(hexVal >> 8)
         ipBytes[outIndex+1] = UInt8(hexVal & 0xff)
         outIndex += 2
-        
-        /// Drop out if the string is empty.
-        if ipTmpString == "" { break }
-        
-        // Check the first character of the next value...
-        let firstChar = ipTmpString.first!
-        
-        /// making sure it's a colon
+
+        // Drop out if the string is empty.
+        guard
+            ipTmpString != "",
+            let firstChar = ipTmpString.first else {
+                break
+        }
+
+        // making sure it's a colon
         if separator != ":" || charactersRead+1 == ipStringLength { throw IPError.invalidIPString }
         
-        /// we need to drop out here if the next character is a colon and we haven't yet got one.
+        // we need to drop out here if the next character is a colon and we haven't yet got one.
         if firstChar == ":" {
-            if ellipsis >= 0 { throw IPError.tooManyEllipsis }
+            guard ellipsis <= 0 else {
+                throw IPError.tooManyEllipsis
+            }
             ellipsis = outIndex
             
             ipTmpString.remove(at: ipTmpString.startIndex)
             charactersRead += 1
-            
-            if ipTmpString.count == 0 {
+
+            if ipTmpString.isEmpty {
                 break
             }
         }
     }
     
-    /// Throw an error if we haven't used the whole string.
-    if charactersRead != ipStringLength { throw IPError.notUsedEntireString }
+    // Throw an error if we haven't used the whole string.
+    guard charactersRead == ipStringLength else {
+        throw IPError.notUsedEntireString
+    }
     
-    /// If the ipBytes is not a full IPv6 length we need to expand it.
+    // If the ipBytes is not a full IPv6 length we need to expand it.
     if outIndex < IPv6Len {
         ipBytes = try expandEllipsis(ipBytes, bytesWritten: outIndex, ellipsisIndex: ellipsis)
     } else {
-        /// At this point we've got a full output ipBytes but we still have an unexpanded
-        /// ellipsis which means there's an error.
+        // At this point we've got a full output ipBytes but we still have an unexpanded
+        // ellipsis which means there's an error.
         if ellipsis >= 0 { throw IPError.unusedEllipsis }
     }
     
@@ -202,10 +201,7 @@ func parseIPv6(_ ipString: String, zoneAllowed: Bool) throws -> (IP, String) {
 }
 
 func isZeros<N : BinaryInteger>(_ numbers: [N]) -> Bool {
-    for number in numbers {
-        if number != 0 { return false }
-    }
-    return true
+    numbers.allSatisfy { $0 == 0 }
 }
 
 func ipToIPv4(_ anIP: IP) throws -> IP {
@@ -235,22 +231,20 @@ func ipToIPv6(_ anIP: IP) throws -> IP {
 }
 
 func expandEllipsis(_ ipBytes: IP, bytesWritten: Int, ellipsisIndex: Int) throws -> IP {
-    
-    if ellipsisIndex < 0 { throw IPError.noEllipsisToExpand }
+    guard ellipsisIndex >= 0 else {
+        throw IPError.noEllipsisToExpand
+    }
     
     var ip  = ipBytes
-    /// Calculate the number of bytes left to expand into.
+    // Calculate the number of bytes left to expand into.
     let bytesLeft   = IPv6Len - bytesWritten
     
-    /// move the values after the ellipsis to the end of the output string
-//    for var k = bytesWritten - 1 ; k >= ellipsisIndex ; k -= 1 {
-//        print("k1 \(k)")
-//    }
+    // move the values after the ellipsis to the end of the output string
     for k in (ellipsisIndex...bytesWritten - 1).reversed() {
         ip[k+bytesLeft] = ip[k]
     }
     
-    /// Fill the bytes between the ellipsis and the ? with 0
+    // Fill the bytes between the ellipsis and the ? with 0
     for k in (ellipsisIndex...(ellipsisIndex + bytesLeft - 1)).reversed() {
         ip[k] = 0
     }
@@ -258,28 +252,38 @@ func expandEllipsis(_ ipBytes: IP, bytesWritten: Int, ellipsisIndex: Int) throws
 }
 
 func splitHostZone(_ ipString: String) -> (String, String) {
-    
     // split the ipString at most once, effectively giving us the first
     let components  = ipString.components(separatedBy: "%")
+
+    guard
+        components.count >= 2,
+        let lastComponent = components.last else {
+            return (ipString, "")
+    }
     
-    if components.count < 2 { return (ipString,"") }
-    
-    return (components.dropLast().joined(separator: "%"), String(components.last!))
+    return (components.dropLast().joined(separator: "%"), String(lastComponent))
 }
 
 let validHex = CharacterSet(charactersIn: "abcdefABCDEF0123456789")
 
 /** hexStringToInt takes a hex value as a string and returns the value as an int */
 func hexStringToInt(_ str: String) -> (Int, Int)? {
-    /// First find the first non alphanumeric index.
-    var idx = 0
-    for char in str.utf16 {
-        if validHex.contains(UnicodeScalar(char)!) == false {
-            let i = str.index(str.startIndex, offsetBy: idx)
-            let validHexString = String(str[..<i])
-            return (Int(validHexString, radix: 16)!,idx)
+    // First find the first non alphanumeric index.
+    for (index, char) in str.utf16.enumerated() {
+        guard
+            let safeCharacter = UnicodeScalar(char),
+            !validHex.contains(safeCharacter) else {
+                continue
         }
-        idx += 1
+
+        let i = str.index(str.startIndex, offsetBy: index)
+        let validHexString = String(str[..<i])
+
+        guard let safeIndex = Int(validHexString, radix: 16) else {
+            return nil
+        }
+
+        return (safeIndex,index)
     }
     return nil
 }

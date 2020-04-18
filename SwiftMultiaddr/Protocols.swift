@@ -37,7 +37,7 @@ enum Protocols {
     case IP_4(Int,String,[UInt8]) // nah, they're all the same...
 }
 */
-let Protocols = [
+private let protocols = [
     Protocol(code: P_IP4,   size:  32, name: "ip4",   vCode: codeToVarint(P_IP4)),
     Protocol(code: P_TCP,   size:  16, name: "tcp",   vCode: codeToVarint(P_TCP)),
     Protocol(code: P_UDP,   size:  16, name: "udp",   vCode: codeToVarint(P_UDP)),
@@ -53,42 +53,34 @@ let Protocols = [
     Protocol(code: P_IPFS,  size: lengthPrefixedVarSize, name: "ipfs", vCode: codeToVarint(P_IPFS))
 ]
 
-enum ProtocolErrors : Error {
+private enum ProtocolErrors : Error {
     case notFound
+    case bigVarIntUnsupported
 }
 
 func protocolWithName(_ name: String) -> Protocol? {
-    for pcol in Protocols {
-        if pcol.name == name { return pcol }
-    }
-    return nil
+    protocols.first { $0.name == name }
 }
 
 func protocolWithCode(_ code: Int) -> Protocol? {
-    for pcol in Protocols {
-        if pcol.code == code { return pcol }
-    }
-    return nil
+    protocols.first { $0.code == code }
 }
 
 func protocolsWithString(_ string: String) throws -> [Protocol]? {
-    
     let trimmedString = string.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
     let splitString = trimmedString.split{$0 == "/"}.map(String.init)
-    
-    if splitString.count != 0 {
-        
-        var foundProtocols: [Protocol] = []
-        for protoName in splitString {
-            
-            guard let p = protocolWithName(protoName) else { throw ProtocolErrors.notFound }
-            
-            foundProtocols.append(p)
-        }
-        
-        return foundProtocols
+
+    guard splitString.count != 0 else {
+        return nil
     }
-    return nil
+    
+    return try splitString.compactMap {
+        guard let proto = protocolWithName($0) else {
+            throw ProtocolErrors.notFound
+        }
+
+        return proto
+    }
 }
 
 func codeToVarint(_ num: Int) -> [UInt8] {
@@ -99,11 +91,12 @@ func codeToVarint(_ num: Int) -> [UInt8] {
 }
 
 func varIntToCode(_ buffer: [UInt8]) -> (Int, Int) {
-    return readVarIntCode(buffer)
+    readVarIntCode(buffer)
 }
 
 func readVarIntCode(_ buffer: [UInt8]) -> (Int, Int) {
     let (value, bytesRead) = uVarInt(buffer)
-    if bytesRead < 0 { fatalError("varints larger than uint64 not currently supported") }
+    assert(bytesRead >= 0, "varints larger than uint64 not currently supported")
+
     return (Int(value), bytesRead)
 }
